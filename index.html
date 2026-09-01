@@ -1,261 +1,256 @@
 <!DOCTYPE html>
 <html lang="fi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kärppä-veikkaus 2026–2027</title>
-  <style>
-    :root {
-      --karpat-gold: #ffcc00;
-      --karpat-black: #111111;
-      --bg-dark: #18181b;
-      --card-bg: #27272a;
-      --border-color: #3f3f46;
-      --text-main: #f4f4f5;
-      --text-muted: #a1a1aa;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BT-Veikkaus 2026 – Kärpät</title>
+    <style>
+        :root {
+            --karpat-yellow: #ffcc00;
+            --karpat-black: #111111;
+            --bg-gray: #f4f4f9;
+            --card-bg: #ffffff;
+        }
 
-    * { box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-gray);
+            color: var(--karpat-black);
+            margin: 0;
+            padding: 20px;
+        }
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background-color: var(--bg-dark);
-      color: var(--text-main);
-      margin: 0;
-      padding: 20px 12px;
-      line-height: 1.5;
-    }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
 
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-    }
+        header {
+            background-color: var(--karpat-black);
+            color: var(--karpat-yellow);
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
 
-    header {
-      text-align: center;
-      padding: 24px 16px;
-      background: linear-gradient(180deg, #222 0%, var(--card-bg) 100%);
-      border-radius: 12px;
-      border: 1px solid var(--border-color);
-      border-bottom: 4px solid var(--karpat-gold);
-      margin-bottom: 24px;
-    }
+        h1 {
+            margin: 0;
+            font-size: 2em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-    h1 {
-      color: var(--karpat-gold);
-      margin: 0 0 6px 0;
-      font-size: 1.8rem;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
+        .card {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+        }
 
-    .subtitle {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      margin: 0;
-    }
+        h2 {
+            margin-top: 0;
+            border-bottom: 2px solid var(--karpat-yellow);
+            padding-bottom: 8px;
+        }
 
-    .card {
-      background: var(--card-bg);
-      border-radius: 12px;
-      border: 1px solid var(--border-color);
-      padding: 20px;
-      margin-bottom: 24px;
-    }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
 
-    h2 {
-      color: var(--karpat-gold);
-      font-size: 1.25rem;
-      margin-top: 0;
-      margin-bottom: 16px;
-      border-bottom: 1px solid var(--border-color);
-      padding-bottom: 8px;
-    }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      text-align: left;
-    }
+        th {
+            background-color: #f8f8f8;
+            font-weight: bold;
+        }
 
-    th, td {
-      padding: 10px 12px;
-      border-bottom: 1px solid var(--border-color);
-      font-size: 0.95rem;
-    }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
 
-    th {
-      color: var(--text-muted);
-      font-weight: 600;
-      text-transform: uppercase;
-      font-size: 0.8rem;
-    }
+        .pos {
+            font-weight: bold;
+            width: 40px;
+            text-align: center;
+        }
 
-    tr:last-child td { border-bottom: none; }
+        .badge {
+            background-color: var(--karpat-black);
+            color: var(--karpat-yellow);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
 
-    .badge-rank {
-      display: inline-block;
-      width: 26px;
-      height: 26px;
-      line-height: 26px;
-      background: var(--karpat-gold);
-      color: var(--karpat-black);
-      font-weight: bold;
-      text-align: center;
-      border-radius: 50%;
-      font-size: 0.85rem;
-    }
-
-    .points {
-      font-weight: bold;
-      color: var(--karpat-gold);
-      font-size: 1.05rem;
-    }
-
-    .rules-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 12px;
-    }
-
-    .rule-box {
-      background: #18181b;
-      padding: 12px 16px;
-      border-radius: 8px;
-      border-left: 3px solid var(--karpat-gold);
-    }
-
-    .rule-box strong { color: var(--karpat-gold); }
-
-    .match-card {
-      background: #18181b;
-      border-radius: 8px;
-      padding: 14px;
-      margin-bottom: 12px;
-      border: 1px solid var(--border-color);
-    }
-
-    .match-header {
-      display: flex;
-      justify-content: space-between;
-      font-weight: bold;
-      margin-bottom: 8px;
-    }
-
-    .match-result {
-      color: var(--karpat-gold);
-    }
-
-    .weight-tag {
-      background: #333;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-size: 0.8rem;
-      margin-left: 6px;
-    }
-  </style>
+        .info-box {
+            font-size: 0.9em;
+            color: #555;
+            background-color: #fff8dc;
+            border-left: 4px solid var(--karpat-yellow);
+            padding: 10px 15px;
+            margin-bottom: 15px;
+        }
+    </style>
 </head>
 <body>
 
-  <div class="container">
+<div class="container">
     <header>
-      <h1>Kärpät Veikkaus 2026–2027</h1>
-      <p class="subtitle">Runko-otteluiden 1–2 -veikkauskimppa (10 osallistujaa)</p>
+        <h1>BT-Veikkaus 2026</h1>
+        <p style="margin: 5px 0 0 0;">Kärppien runkosarjaotteluiden veikkauskimppa</p>
     </header>
 
-    <!-- Pisteytyssäännöt -->
     <div class="card">
-      <h2>Pisteytysmalli</h2>
-      <div class="rules-grid">
-        <div class="rule-box">
-          <strong>Eniten veikattu (1.0x)</strong><br>
-          Enemmistön valinta tuo 1 pisteen oikein osuttaessa.
-        </div>
-        <div class="rule-box">
-          <strong>Vähiten veikattu (2.0x)</strong><br>
-          Vähemmistön valinta tuo 2 pistettä oikein osuttaessa.
-        </div>
-        <div class="rule-box">
-          <strong>Tasajako (1.5x)</strong><br>
-          Jos veikkaukset tasan (5–5), kerroin on 1.5.
-        </div>
-      </div>
+        <h2>Sarjataulukko</h2>
+        <div id="leaderboard-loading">Ladataan pisteitä...</div>
+        <table id="leaderboard" style="display: none;">
+            <thead>
+                <tr>
+                    <th class="pos">#</th>
+                    <th>Veikkaaja</th>
+                    <th>Oikein</th>
+                    <th>Pisteet</th>
+                </tr>
+            </thead>
+            <tbody id="leaderboard-body"></tbody>
+        </table>
     </div>
 
-    <!-- Sarjataulukko -->
     <div class="card">
-      <h2>Sarjataulukko</h2>
-      <table>
-        <thead>
-          <tr>
-            <th style="width: 50px;">#</th>
-            <th>Nimi</th>
-            <th>Oikein</th>
-            <th style="text-align: right;">Pisteet</th>
-          </tr>
-        </thead>
-        <tbody id="leaderboard-body">
-          <tr><td colspan="4">Ladataan tilannetta...</td></tr>
-        </tbody>
-      </table>
+        <h2>Otteluhistoria ja Kerroinlaskenta</h2>
+        <div class="info-box">
+            <strong>Pistelaskusäännöt:</strong><br>
+            Eniten veikattu merkki = <strong>1 p</strong> | Vähiten veikattu merkki = <strong>2 p</strong> | Tasavertaiset veikkaukset = <strong>1,5 p</strong>
+        </div>
+        <div id="matches-loading">Ladataan otteluita...</div>
+        <table id="matches" style="display: none;">
+            <thead>
+                <tr>
+                    <th>Ottelu</th>
+                    <th>Tulos</th>
+                    <th>Veikkaukset (1 / 2)</th>
+                    <th>Painokerroin</th>
+                </tr>
+            </thead>
+            <tbody id="matches-body"></tbody>
+        </table>
     </div>
+</div>
 
-    <!-- Otteluhistoria -->
-    <div class="card">
-      <h2>Menneet ottelut</h2>
-      <div id="matches-container">
-        Ladataan otteluita...
-      </div>
-    </div>
-  </div>
-
-  <script>
-    fetch('./data.json')
-      .then(response => response.json())
-      .then(data => {
-        // Render Leaderboard
-        const lbBody = document.getElementById('leaderboard-body');
-        lbBody.innerHTML = '';
+<script>
+    // Kärppä-pistelaskentalogiikka
+    function calculateMultiplier(count1, count2, actualResult) {
+        if (count1 === count2) {
+            return 1.5; // Tasan yhtä paljon veikattu
+        }
         
-        const sortedLeaderboard = [...data.leaderboard].sort((a, b) => b.points - a.points);
+        const mostBet = count1 > count2 ? "1" : "2";
         
-        sortedLeaderboard.forEach((player, index) => {
-          lbBody.innerHTML += `
-            <tr>
-              <td><span class="badge-rank">${index + 1}</span></td>
-              <td><strong>${player.name}</strong></td>
-              <td>${player.correct} / ${player.total}</td>
-              <td style="text-align: right;" class="points">${player.points.toFixed(1)} p</td>
-            </tr>
-          `;
+        if (actualResult === mostBet) {
+            return 1;   // Suosikki voitti (eniten veikattu)
+        } else {
+            return 2;   // Yllätys voitti (vähiten veikattu)
+        }
+    }
+
+    // Tiedatetaan tiedot data.json-tiedostosta
+    async function loadData() {
+        try {
+            const response = await fetch('data.json');
+            if (!response.ok) throw new Error('data.json-tiedostoa ei löytynyt');
+            const data = await response.json();
+            
+            processAndRender(data);
+        } catch (error) {
+            console.error('Virhe ladattaessa dataa:', error);
+            document.getElementById('leaderboard-loading').innerText = 'Virhe ladattaessa tietoja data.json-tiedostosta.';
+            document.getElementById('matches-loading').innerText = 'Tarkista, että data.json on olemassa samassa kansiossa.';
+        }
+    }
+
+    function processAndRender(data) {
+        const playerScores = {};
+        
+        // Alustetaan pelaajat
+        data.players.forEach(player => {
+            playerScores[player] = { name: player, correct: 0, points: 0 };
         });
 
-        // Render Matches
-        const matchesDiv = document.getElementById('matches-container');
-        matchesDiv.innerHTML = '';
+        const matchesTableBody = document.getElementById('matches-body');
+        matchesTableBody.innerHTML = '';
 
-        if (!data.matches || data.matches.length === 0) {
-          matchesDiv.innerHTML = '<p style="color: var(--text-muted);">Ei pelattuja otteluita vielä.</p>';
-        } else {
-          data.matches.reverse().forEach(match => {
-            matchesDiv.innerHTML += `
-              <div class="match-card">
-                <div class="match-header">
-                  <span>${match.date} | Kärpät vs. ${match.opponent}</span>
-                  <span class="match-result">Tulos: Merkki ${match.result}</span>
-                </div>
-                <div style="font-size: 0.85rem; color: var(--text-muted);">
-                  Veikkaukset: [1: Kärpät] ${match.count_1} kpl (Kerroin: ${match.weight_1}x) | 
-                  [2: Vastustaja] ${match.count_2} kpl (Kerroin: ${match.weight_2}x)
-                </div>
-              </div>
+        // Käydään ottelut läpi ja lasketaan pisteet
+        data.matches.forEach(match => {
+            let count1 = 0;
+            let count2 = 0;
+
+            // Lasketaan veikkausten jakauma (1 vs 2)
+            Object.values(match.bets).forEach(bet => {
+                if (bet === "1") count1++;
+                if (bet === "2") count2++;
+            });
+
+            const multiplier = calculateMultiplier(count1, count2, match.result);
+
+            // Päivitetään pelaajien pisteet
+            Object.entries(match.bets).forEach(([player, bet]) => {
+                if (playerScores[player]) {
+                    if (bet === match.result) {
+                        playerScores[player].correct += 1;
+                        playerScores[player].points += multiplier;
+                    }
+                }
+            });
+
+            // Lisätään rivi ottelutaulukkoon
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><strong>${match.home} - ${match.away}</strong><br><small>${match.date}</small></td>
+                <td><span class="badge">${match.result}</span></td>
+                <td>1: <strong>${count1}</strong> kpl | 2: <strong>${count2}</strong> kpl</td>
+                <td><strong>${multiplier}</strong></td>
             `;
-          });
-        }
-      })
-      .catch(err => {
-        document.getElementById('leaderboard-body').innerHTML = '<tr><td colspan="4">Virhe ladattaessa tietoja. Varmista että data.json on luotu.</td></tr>';
-      });
-  </script>
+            matchesTableBody.appendChild(tr);
+        });
+
+        // Järjestetään pelaajat pisteiden mukaan
+        const sortedPlayers = Object.values(playerScores).sort((a, b) => b.points - a.points);
+
+        // Renderöidään sarjataulukko
+        const leaderboardBody = document.getElementById('leaderboard-body');
+        leaderboardBody.innerHTML = '';
+        
+        sortedPlayers.forEach((player, index) => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td class="pos">${index + 1}.</td>
+                <td><strong>${player.name}</strong></td>
+                <td>${player.correct} / ${data.matches.length}</td>
+                <td><strong>${player.points} p</strong></td>
+            `;
+            leaderboardBody.appendChild(tr);
+        });
+
+        // Näytetään taulukot
+        document.getElementById('leaderboard-loading').style.display = 'none';
+        document.getElementById('matches-loading').style.display = 'none';
+        document.getElementById('leaderboard').style.display = 'table';
+        document.getElementById('matches').style.display = 'table';
+    }
+
+    // Käynnistetään lataus sivun avautuessa
+    document.addEventListener('DOMContentLoaded', loadData);
+</script>
+
 </body>
 </html>
