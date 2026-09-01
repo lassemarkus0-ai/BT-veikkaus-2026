@@ -5,99 +5,206 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BT-VEIKKAUS 2026</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f5f7;
-            margin: 0;
-            padding: 20px;
-            color: #333;
+        :root {
+            --bg-color: #f4f5f7;
+            --card-bg: #ffffff;
+            --primary-color: #111111;
+            --accent-color: #ffcc00;
+            --border-color: #e0e0e0;
+            --text-color: #333333;
+            --correct-bg: #e8f5e9;
+            --correct-border: #81c784;
         }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 15px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
         .header {
-            background-color: #111;
-            color: #ffcc00;
+            background-color: var(--primary-color);
+            color: var(--accent-color);
             text-align: center;
             padding: 20px;
             border-radius: 8px;
             margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
+
         .header h1 {
             margin: 0;
-            font-size: 28px;
+            font-size: 26px;
+            letter-spacing: 1px;
         }
+
         .header p {
             margin: 5px 0 0 0;
-            color: #fff;
+            color: #ffffff;
+            font-size: 14px;
         }
+
         .section {
-            background: #fff;
+            background: var(--card-bg);
             padding: 20px;
             border-radius: 8px;
             margin-bottom: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
+
         .section h2 {
             margin-top: 0;
-            border-bottom: 2px solid #ffcc00;
+            border-bottom: 3px solid var(--accent-color);
             padding-bottom: 8px;
+            font-size: 20px;
         }
+
+        /* Taulukko */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+
+        /* Säännöt */
         .rules {
             background-color: #fffde7;
-            border-left: 4px solid #ffcc00;
+            border-left: 4px solid var(--accent-color);
             padding: 10px 15px;
-            margin-bottom: 15px;
-            font-size: 14px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            border-radius: 0 4px 4px 0;
         }
+
+        /* Ottelukortit */
         .match-card {
-            border: 1px solid #e0e0e0;
+            border: 1px solid var(--border-color);
             border-radius: 6px;
             padding: 15px;
             margin-bottom: 15px;
-            background-color: #fafafa;
+            background-color: #fff;
         }
-        .match-card h3 {
-            margin: 0 0 10px 0;
-            color: #111;
+
+        .match-card.upcoming {
+            border-left: 4px solid #2196f3;
         }
-        .predictions ul {
-            list-style-type: none;
-            padding-left: 0;
-            margin: 5px 0 0 0;
+
+        .match-card.played {
+            border-left: 4px solid #4caf50;
         }
-        .predictions li {
+
+        .match-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .match-date {
+            font-size: 12px;
+            color: #666;
+            font-weight: normal;
+        }
+
+        .match-status {
+            margin-bottom: 12px;
+        }
+
+        .badge {
             display: inline-block;
-            background: #e9ecef;
-            padding: 4px 10px;
-            margin-right: 8px;
-            margin-top: 5px;
+            padding: 3px 8px;
             border-radius: 4px;
-            font-size: 14px;
+            font-size: 12px;
+        }
+
+        .result-badge {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .upcoming-badge {
+            background-color: #e3f2fd;
+            color: #1565c0;
+        }
+
+        /* Veikkaukset ruudukossa */
+        .predictions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .prediction-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8f9fa;
+            padding: 6px 10px;
+            border-radius: 4px;
+            border: 1px solid #eee;
+            font-size: 13px;
+        }
+
+        .prediction-item.correct-pick {
+            background-color: var(--correct-bg);
+            border-color: var(--correct-border);
+            font-weight: bold;
+        }
+
+        .pick-badge {
+            background: #111;
+            color: #fff;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 11px;
         }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h1>BT-VEIKKAUS 2026</h1>
-        <p>Kärppien runkosarjaotteluiden veikkauskimppa</p>
-    </div>
-
-    <div class="section">
-        <h2>Sarjataulukko</h2>
-        <div id="standings-container">Ladataan sarjataulukkoa...</div>
-    </div>
-
-    <div class="section">
-        <h2>Otteluhistoria ja Kerroinlaskenta</h2>
-        <div class="rules">
-            <strong>Pistelaskusäännöt:</strong><br>
-            Eniten veikattu merkki = <strong>1 p</strong> | Vähiten veikattu merkki = <strong>2 p</strong> | Tasavertaiset veikkaukset = <strong>1,5 p</strong>
+    <div class="container">
+        <div class="header">
+            <h1>BT-VEIKKAUS 2026</h1>
+            <p>Kärppien runkosarjaotteluiden veikkauskimppa</p>
         </div>
 
-        <!-- Tähän säiliöön script.js tulostaa pelatut ja tulevat ottelut -->
-        <div id="matches-container">Ladataan otteluita...</div>
+        <div class="section">
+            <h2>Sarjataulukko</h2>
+            <div id="standings-container">Ladataan sarjataulukkoa...</div>
+        </div>
+
+        <div class="section">
+            <h2>Otteluhistoria ja Kerroinlaskenta</h2>
+            <div class="rules">
+                <strong>Pistelaskusäännöt:</strong><br>
+                Eniten veikattu merkki = <strong>1 p</strong> | Vähiten veikattu merkki = <strong>2 p</strong> | Tasavertaiset veikkaukset = <strong>1,5 p</strong>
+            </div>
+
+            <div id="matches-container">Ladataan otteluita...</div>
+        </div>
     </div>
 
-    <!-- Kytkentä script.js-tiedostoon -->
     <script src="script.js"></script>
 </body>
 </html>
