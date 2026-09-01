@@ -1,110 +1,578 @@
 <!DOCTYPE html>
 <html lang="fi">
 <head>
-  <meta charset="UTF-8">
-  <!-- Mobiilinäytön optimointi -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BT-veikkaus 2026</title>
-  
-  <style>
-    /* Yleiset perustyylit */
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      margin: 0;
-      padding: 16px;
-      background-color: #f4f6f8;
-      color: #333;
-    }
-
-    h1 {
-      text-align: center;
-      color: #1a2b4c;
-      margin-bottom: 20px;
-    }
-
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      background: #ffffff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Taulukon tyylit */
-    .table-wrapper {
-      width: 100%;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 15px;
-    }
-
-    th, td {
-      border: 1px solid #e0e0e0;
-      padding: 10px 12px;
-      text-align: center;
-    }
-
-    th {
-      background-color: #1a2b4c;
-      color: #ffffff;
-      font-weight: 600;
-    }
-
-    tr:nth-child(even) {
-      background-color: #f9fafb;
-    }
-
-    /* Mobiilimukautukset (puhelimen näytölle) */
-    @media (max-width: 768px) {
-      body {
-        padding: 8px;
-        font-size: 14px;
-      }
-
-      .container {
-        padding: 12px;
-      }
-
-      h1 {
-        font-size: 1.4rem;
-        margin-bottom: 12px;
-      }
-
-      table {
-        white-space: nowrap;
-      }
-
-      th, td {
-        padding: 8px 6px;
-        font-size: 13px;
-      }
-
-      button, select {
-        width: 100%;
-        min-height: 44px;
-        margin-bottom: 8px;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liiga-veikkaus 2026–2027</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+        .table-container {
+            overflow-x: auto;
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        th, td {
+            padding: 10px 12px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #34495e;
+            color: white;
+            position: sticky;
+            top: 0;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .team-home {
+            font-weight: bold;
+            text-align: right;
+            width: 20%;
+        }
+        .team-away {
+            font-weight: bold;
+            text-align: left;
+            width: 20%;
+        }
+        .vs {
+            color: #7f8c8d;
+            width: 5%;
+        }
+        .date {
+            white-space: nowrap;
+            color: #555;
+            width: 15%;
+        }
+        .pred {
+            font-weight: bold;
+            background-color: #eef2f7;
+            border-radius: 4px;
+        }
+    </style>
 </head>
 <body>
 
-  <div class="container">
-    <h1>BT-veikkaus 2026</h1>
-    
-    <div class="table-wrapper">
-      <table id="matchTable">
-        <!-- Taulukon sisältö renderöidään script.js-tiedostosta -->
-      </table>
-    </div>
-  </div>
+    <h1>Liiga-veikkaus 2026–2027</h1>
 
-  <script src="script.js?v=1"></script>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Pvm & Klo</th>
+                    <th>Kotijoukkue</th>
+                    <th></th>
+                    <th>Vierasjoukkue</th>
+                    <th>Asko</th>
+                    <th>Markus</th>
+                    <th>Ilpo</th>
+                    <th>Absolut</th>
+                    <th>Kari</th>
+                    <th>Pasi</th>
+                </tr>
+            </thead>
+            <tbody id="matches-body">
+                <!-- Ottelut generoidaan tähän JavaScriptillä -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const matches = [
+  {
+    "dateTime": "01.09.2026 18.30",
+    "homeTeam": "Kärpät",
+    "awayTeam": "Ässät",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "1", "Ilpo": "1", "Absolut": "1", "Kari": "1", "Pasi": "1" }
+  },
+  {
+    "dateTime": "05.09.2026 17.00",
+    "homeTeam": "Kärpät",
+    "awayTeam": "JYP",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "1", "Ilpo": "1", "Absolut": "1", "Kari": "2", "Pasi": "2" }
+  },
+  {
+    "dateTime": "16.09.2026 18.30",
+    "homeTeam": "Kärpät",
+    "awayTeam": "Ilves",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "2", "Ilpo": "2", "Absolut": "2", "Kari": "2", "Pasi": "1" }
+  },
+  {
+    "dateTime": "19.09.2026 17.00",
+    "homeTeam": "Kärpät",
+    "awayTeam": "Sport",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "1", "Ilpo": "1", "Absolut": "1", "Kari": "1", "Pasi": "1" }
+  },
+  {
+    "dateTime": "22.09.2026 18.30",
+    "homeTeam": "Tappara",
+    "awayTeam": "Kärpät",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "2", "Ilpo": "2", "Absolut": "1", "Kari": "2", "Pasi": "2" }
+  },
+  {
+    "dateTime": "23.09.2026 18.30",
+    "homeTeam": "HIFK",
+    "awayTeam": "Kärpät",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "1", "Ilpo": "1", "Absolut": "2", "Kari": "2", "Pasi": "2" }
+  },
+  {
+    "dateTime": "26.09.2026 17.00",
+    "homeTeam": "Sport",
+    "awayTeam": "Kärpät",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "1", "Ilpo": "1", "Absolut": "1", "Kari": "1", "Pasi": "2" }
+  },
+  {
+    "dateTime": "30.09.2026 18.30",
+    "homeTeam": "Kärpät",
+    "awayTeam": "SaiPa",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "1", "Ilpo": "1", "Absolut": "1", "Kari": "1", "Pasi": "2" }
+  },
+  {
+    "dateTime": "02.10.2026 18.30",
+    "homeTeam": "K-Espoo",
+    "awayTeam": "Kärpät",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "1", "Ilpo": "1", "Absolut": "2", "Kari": "2", "Pasi": "2" }
+  },
+  {
+    "dateTime": "03.10.2026 17.00",
+    "homeTeam": "HPK",
+    "awayTeam": "Kärpät",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "1", "Ilpo": "1", "Absolut": "1", "Kari": "1", "Pasi": "1" }
+  },
+  {
+    "dateTime": "06.10.2026 18.30",
+    "homeTeam": "Kärpät",
+    "awayTeam": "K-Espoo",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "1", "Ilpo": "1", "Absolut": "1", "Kari": "1", "Pasi": "1" }
+  },
+  {
+    "dateTime": "09.10.2026 18.30",
+    "homeTeam": "Pelicans",
+    "awayTeam": "Kärpät",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "2", "Ilpo": "1", "Absolut": "2", "Kari": "2", "Pasi": "1" }
+  },
+  {
+    "dateTime": "10.10.2026 17.00",
+    "homeTeam": "Jukurit",
+    "awayTeam": "Kärpät",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "1", "Ilpo": "1", "Absolut": "2", "Kari": "1", "Pasi": "1" }
+  },
+  {
+    "dateTime": "16.10.2026 19.30",
+    "homeTeam": "JYP",
+    "awayTeam": "Kärpät",
+    "result": "",
+    "predictions": { "Asko": "2", "Markus": "1", "Ilpo": "1", "Absolut": "1", "Kari": "2", "Pasi": "2" }
+  },
+  {
+    "dateTime": "17.10.2026 17.00",
+    "homeTeam": "Kärpät",
+    "awayTeam": "KooKoo",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "1", "Ilpo": "1", "Absolut": "1", "Kari": "2", "Pasi": "1" }
+  },
+  {
+    "dateTime": "20.10.2026 18.30",
+    "homeTeam": "SaiPa",
+    "awayTeam": "Kärpät",
+    "result": "",
+    "predictions": { "Asko": "2", "Markus": "1", "Ilpo": "1", "Absolut": "1", "Kari": "2", "Pasi": "1" }
+  },
+  {
+    "dateTime": "23.10.2026 18.30",
+    "homeTeam": "Kärpät",
+    "awayTeam": "KalPa",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "1", "Ilpo": "2", "Absolut": "2", "Kari": "2", "Pasi": "1" }
+  },
+  {
+    "dateTime": "24.10.2026 17.00",
+    "homeTeam": "Kärpät",
+    "awayTeam": "KalPa",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "2", "Ilpo": "1", "Absolut": "1", "Kari": "1", "Pasi": "2" }
+  },
+  {
+    "dateTime": "28.10.2026 18.30",
+    "homeTeam": "Kärpät",
+    "awayTeam": "HPK",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "1", "Ilpo": "1", "Absolut": "1", "Kari": "1", "Pasi": "1" }
+  },
+  {
+    "dateTime": "31.10.2026 17.00",
+    "homeTeam": "Kärpät",
+    "awayTeam": "Jukurit",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "1", "Ilpo": "1", "Absolut": "1", "Kari": "1", "Pasi": "1" }
+  },
+  {
+    "dateTime": "11.11.2026 18.30",
+    "homeTeam": "JYP",
+    "awayTeam": "Kärpät",
+    "result": "",
+    "predictions": { "Asko": "2", "Markus": "1", "Ilpo": "2", "Absolut": "1", "Kari": "2", "Pasi": "2" }
+  },
+  {
+    "dateTime": "14.11.2026 17.00",
+    "homeTeam": "Kärpät",
+    "awayTeam": "Tappara",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "2", "Ilpo": "1", "Absolut": "2", "Kari": "2", "Pasi": "2" }
+  },
+  {
+    "dateTime": "18.11.2026 18.30",
+    "homeTeam": "TPS",
+    "awayTeam": "Kärpät",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "1", "Ilpo": "1", "Absolut": "2", "Kari": "1", "Pasi": "1" }
+  },
+  {
+    "dateTime": "20.11.2026 18.00",
+    "homeTeam": "KooKoo",
+    "awayTeam": "Kärpät",
+    "result": "",
+    "predictions": { "Asko": "2", "Markus": "1", "Ilpo": "2", "Absolut": "1", "Kari": "2", "Pasi": "1" }
+  },
+  {
+    "dateTime": "21.11.2026 17.00",
+    "homeTeam": "Kärpät",
+    "awayTeam": "Jokerit",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "1", "Ilpo": "2", "Absolut": "1", "Kari": "1", "Pasi": "1" }
+  },
+  {
+    "dateTime": "25.11.2026 18.30",
+    "homeTeam": "Kärpät",
+    "awayTeam": "Pelicans",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "1", "Ilpo": "2", "Absolut": "1", "Kari": "1", "Pasi": "1" }
+  },
+  {
+    "dateTime": "28.11.2026 17.00",
+    "homeTeam": "Ässät",
+    "awayTeam": "Kärpät",
+    "result": "",
+    "predictions": { "Asko": "2", "Markus": "1", "Ilpo": "1", "Absolut": "1", "Kari": "1", "Pasi": "2" }
+  },
+  {
+    "dateTime": "02.12.2026 18.30",
+    "homeTeam": "Ilves",
+    "awayTeam": "Kärpät",
+    "result": "",
+    "predictions": { "Asko": "2", "Markus": "1", "Ilpo": "1", "Absolut": "1", "Kari": "2", "Pasi": "2" }
+  },
+  {
+    "dateTime": "04.12.2026 19.30",
+    "homeTeam": "Lukko",
+    "awayTeam": "Kärpät",
+    "result": "",
+    "predictions": { "Asko": "2", "Markus": "1", "Ilpo": "2", "Absolut": "1", "Kari": "2", "Pasi": "1" }
+  },
+  {
+    "dateTime": "05.12.2026 17.00",
+    "homeTeam": "Lukko",
+    "awayTeam": "Kärpät",
+    "result": "",
+    "predictions": { "Asko": "2", "Markus": "2", "Ilpo": "1", "Absolut": "2", "Kari": "2", "Pasi": "2" }
+  },
+  {
+    "dateTime": "09.12.2026 18.30",
+    "homeTeam": "Jokerit",
+    "awayTeam": "Kärpät",
+    "result": "",
+    "predictions": { "Asko": "2", "Markus": "1", "Ilpo": "1", "Absolut": "2", "Kari": "2", "Pasi": "1" }
+  },
+  {
+    "dateTime": "12.12.2026 18.00",
+    "homeTeam": "Kärpät",
+    "awayTeam": "HIFK",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "1", "Ilpo": "1", "Absolut": "1", "Kari": "1", "Pasi": "1" }
+  },
+  {
+    "dateTime": "15.12.2026 18.30",
+    "homeTeam": "TPS",
+    "awayTeam": "Kärpät",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "2", "Ilpo": "1", "Absolut": "1", "Kari": "1", "Pasi": "1" }
+  },
+  {
+    "dateTime": "17.12.2026 18.30",
+    "homeTeam": "Kärpät",
+    "awayTeam": "K-Espoo",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "1", "Ilpo": "2", "Absolut": "1", "Kari": "1", "Pasi": "1" }
+  },
+  {
+    "dateTime": "19.12.2026 17.00",
+    "homeTeam": "Sport",
+    "awayTeam": "Kärpät",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "1", "Ilpo": "1", "Absolut": "1", "Kari": "1", "Pasi": "1" }
+  },
+  {
+    "dateTime": "26.12.2026 17.00",
+    "homeTeam": "Kärpät",
+    "awayTeam": "JYP",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "2", "Ilpo": "1", "Absolut": "1", "Kari": "2", "Pasi": "2" }
+  },
+  {
+    "dateTime": "28.12.2026 18.30",
+    "homeTeam": "KooKoo",
+    "awayTeam": "Kärpät",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "1", "Ilpo": "1", "Absolut": "1", "Kari": "2", "Pasi": "2" }
+  },
+  {
+    "dateTime": "30.12.2026 18.30",
+    "homeTeam": "Kärpät",
+    "awayTeam": "Tappara",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "2", "Ilpo": "1", "Absolut": "2", "Kari": "2", "Pasi": "2" }
+  },
+  {
+    "dateTime": "02.01.2027 17.00",
+    "homeTeam": "Kärpät",
+    "awayTeam": "HPK",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "1", "Ilpo": "1", "Absolut": "1", "Kari": "1", "Pasi": "1" }
+  },
+  {
+    "dateTime": "08.01.2027 19.30",
+    "homeTeam": "Kärpät",
+    "awayTeam": "Jokerit",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "1", "Ilpo": "2", "Absolut": "1", "Kari": "2", "Pasi": "1" }
+  },
+  {
+    "dateTime": "09.01.2027 17.00",
+    "homeTeam": "Jokerit",
+    "awayTeam": "Kärpät",
+    "result": "",
+    "predictions": { "Asko": "2", "Markus": "1", "Ilpo": "1", "Absolut": "1", "Kari": "2", "Pasi": "1" }
+  },
+  {
+    "dateTime": "14.01.2027 18.30",
+    "homeTeam": "Kärpät",
+    "awayTeam": "Pelicans",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "2", "Ilpo": "1", "Absolut": "1", "Kari": "1", "Pasi": "1" }
+  },
+  {
+    "dateTime": "16.01.2027 17.00",
+    "homeTeam": "SaiPa",
+    "awayTeam": "Kärpät",
+    "result": "",
+    "predictions": { "Asko": "2", "Markus": "1", "Ilpo": "2", "Absolut": "1", "Kari": "2", "Pasi": "1" }
+  },
+  {
+    "dateTime": "19.01.2027 18.30",
+    "homeTeam": "Kärpät",
+    "awayTeam": "Sport",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "1", "Ilpo": "2", "Absolut": "1", "Kari": "1", "Pasi": "1" }
+  },
+  {
+    "dateTime": "22.01.2027 18.30",
+    "homeTeam": "Tappara",
+    "awayTeam": "Kärpät",
+    "result": "",
+    "predictions": { "Asko": "2", "Markus": "1", "Ilpo": "1", "Absolut": "1", "Kari": "2", "Pasi": "2" }
+  },
+  {
+    "dateTime": "23.01.2027 17.00",
+    "homeTeam": "K-Espoo",
+    "awayTeam": "Kärpät",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "1", "Ilpo": "2", "Absolut": "2", "Kari": "1", "Pasi": "2" }
+  },
+  {
+    "dateTime": "30.01.2027 17.00",
+    "homeTeam": "Kärpät",
+    "awayTeam": "KooKoo",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "1", "Ilpo": "1", "Absolut": "1", "Kari": "1", "Pasi": "1" }
+  },
+  {
+    "dateTime": "02.02.2027 18.30",
+    "homeTeam": "Ilves",
+    "awayTeam": "Kärpät",
+    "result": "",
+    "predictions": { "Asko": "2", "Markus": "2", "Ilpo": "2", "Absolut": "1", "Kari": "2", "Pasi": "1" }
+  },
+  {
+    "dateTime": "04.02.2027 18.30",
+    "homeTeam": "HIFK",
+    "awayTeam": "Kärpät",
+    "result": "",
+    "predictions": { "Asko": "2", "Markus": "2", "Ilpo": "2", "Absolut": "1", "Kari": "2", "Pasi": "2" }
+  },
+  {
+    "dateTime": "06.02.2027 17.00",
+    "homeTeam": "Kärpät",
+    "awayTeam": "Ässät",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "1", "Ilpo": "1", "Absolut": "1", "Kari": "1", "Pasi": "1" }
+  },
+  {
+    "dateTime": "16.02.2027 18.30",
+    "homeTeam": "Kärpät",
+    "awayTeam": "TPS",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "1", "Ilpo": "2", "Absolut": "1", "Kari": "1", "Pasi": "1" }
+  },
+  {
+    "dateTime": "19.02.2027 19.30",
+    "homeTeam": "KalPa",
+    "awayTeam": "Kärpät",
+    "result": "",
+    "predictions": { "Asko": "2", "Markus": "1", "Ilpo": "1", "Absolut": "1", "Kari": "2", "Pasi": "2" }
+  },
+  {
+    "dateTime": "20.02.2027 17.00",
+    "homeTeam": "KalPa",
+    "awayTeam": "Kärpät",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "1", "Ilpo": "1", "Absolut": "2", "Kari": "1", "Pasi": "2" }
+  },
+  {
+    "dateTime": "23.02.2027 18.30",
+    "homeTeam": "Jukurit",
+    "awayTeam": "Kärpät",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "1", "Ilpo": "1", "Absolut": "1", "Kari": "1", "Pasi": "1" }
+  },
+  {
+    "dateTime": "26.02.2027 18.30",
+    "homeTeam": "Kärpät",
+    "awayTeam": "Ilves",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "1", "Ilpo": "2", "Absolut": "1", "Kari": "1", "Pasi": "1" }
+  },
+  {
+    "dateTime": "28.02.2027 17.00",
+    "homeTeam": "Ässät",
+    "awayTeam": "Kärpät",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "1", "Ilpo": "1", "Absolut": "2", "Kari": "2", "Pasi": "1" }
+  },
+  {
+    "dateTime": "05.03.2027 18.30",
+    "homeTeam": "Kärpät",
+    "awayTeam": "Lukko",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "1", "Ilpo": "1", "Absolut": "1", "Kari": "1", "Pasi": "1" }
+  },
+  {
+    "dateTime": "06.03.2027 17.00",
+    "homeTeam": "Kärpät",
+    "awayTeam": "Lukko",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "1", "Ilpo": "2", "Absolut": "2", "Kari": "2", "Pasi": "1" }
+  },
+  {
+    "dateTime": "11.03.2027 18.30",
+    "homeTeam": "Pelicans",
+    "awayTeam": "Kärpät",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "1", "Ilpo": "1", "Absolut": "1", "Kari": "1", "Pasi": "1" }
+  },
+  {
+    "dateTime": "13.03.2027 17.00",
+    "homeTeam": "Kärpät",
+    "awayTeam": "HIFK",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "2", "Ilpo": "1", "Absolut": "1", "Kari": "1", "Pasi": "1" }
+  },
+  {
+    "dateTime": "16.03.2027 18.30",
+    "homeTeam": "Kärpät",
+    "awayTeam": "SaiPa",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "1", "Ilpo": "1", "Absolut": "1", "Kari": "1", "Pasi": "1" }
+  },
+  {
+    "dateTime": "18.03.2027 18.30",
+    "homeTeam": "Kärpät",
+    "awayTeam": "TPS",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "1", "Ilpo": "1", "Absolut": "1", "Kari": "1", "Pasi": "1" }
+  },
+  {
+    "dateTime": "20.03.2027 17.00",
+    "homeTeam": "HPK",
+    "awayTeam": "Kärpät",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "2", "Ilpo": "1", "Absolut": "2", "Kari": "2", "Pasi": "1" }
+  },
+  {
+    "dateTime": "23.03.2027 18.30",
+    "homeTeam": "Kärpät",
+    "awayTeam": "Jukurit",
+    "result": "",
+    "predictions": { "Asko": "1", "Markus": "1", "Ilpo": "1", "Absolut": "1", "Kari": "1", "Pasi": "1" }
+  }
+];
+
+        function renderMatches() {
+            const tbody = document.getElementById('matches-body');
+            tbody.innerHTML = '';
+
+            matches.forEach((m, index) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td class="date">${m.dateTime}</td>
+                    <td class="team-home">${m.homeTeam}</td>
+                    <td class="vs">vs</td>
+                    <td class="team-away">${m.awayTeam}</td>
+                    <td class="pred">${m.predictions.Asko || '-'}</td>
+                    <td class="pred">${m.predictions.Markus || '-'}</td>
+                    <td class="pred">${m.predictions.Ilpo || '-'}</td>
+                    <td class="pred">${m.predictions.Absolut || '-'}</td>
+                    <td class="pred">${m.predictions.Kari || '-'}</td>
+                    <td class="pred">${m.predictions.Pasi || '-'}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', renderMatches);
+    </script>
 </body>
 </html>
