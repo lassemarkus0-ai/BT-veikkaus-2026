@@ -1,0 +1,25 @@
+{
+  "leaderboard": [
+    { "name": "Matti", "correct": 1, "total": 1, "points": 2.0 },
+    { "name": "Pekka", "correct": 1, "total": 1, "points": 1.0 },
+    { "name": "Juha", "correct": 1, "total": 1, "points": 1.0 },
+    { "name": "Sami", "correct": 0, "total": 1, "points": 0.0 },
+    { "name": "Jari", "correct": 1, "total": 1, "points": 1.0 },
+    { "name": "Antti", "correct": 0, "total": 1, "points": 0.0 },
+    { "name": "Mikko", "correct": 1, "total": 1, "points": 1.0 },
+    { "name": "Kalle", "correct": 1, "total": 1, "points": 1.0 },
+    { "name": "Ville", "correct": 1, "total": 1, "points": 1.0 },
+    { "name": "Tomi", "correct": 1, "total": 1, "points": 1.0 }
+  ],
+  "matches": [
+    {
+      "date": "10.09.2026",
+      "opponent": "Tappara",
+      "result": 2,
+      "count_1": 8,
+      "count_2": 2,
+      "weight_1": 1.0,
+      "weight_2": 2.0
+    }
+  ]
+}
