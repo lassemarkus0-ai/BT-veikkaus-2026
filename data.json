@@ -1,25 +1,908 @@
 {
-  "leaderboard": [
-    { "name": "Matti", "correct": 1, "total": 1, "points": 2.0 },
-    { "name": "Pekka", "correct": 1, "total": 1, "points": 1.0 },
-    { "name": "Juha", "correct": 1, "total": 1, "points": 1.0 },
-    { "name": "Sami", "correct": 0, "total": 1, "points": 0.0 },
-    { "name": "Jari", "correct": 1, "total": 1, "points": 1.0 },
-    { "name": "Antti", "correct": 0, "total": 1, "points": 0.0 },
-    { "name": "Mikko", "correct": 1, "total": 1, "points": 1.0 },
-    { "name": "Kalle", "correct": 1, "total": 1, "points": 1.0 },
-    { "name": "Ville", "correct": 1, "total": 1, "points": 1.0 },
-    { "name": "Tomi", "correct": 1, "total": 1, "points": 1.0 }
+  "players": [
+    "Asko",
+    "Markus",
+    "Ilpo",
+    "Absolut",
+    "Kari",
+    "Pasi"
   ],
   "matches": [
     {
-      "date": "10.09.2026",
-      "opponent": "Tappara",
-      "result": 2,
-      "count_1": 8,
-      "count_2": 2,
-      "weight_1": 1.0,
-      "weight_2": 2.0
+      "id": 1,
+      "date": "2026-09-01",
+      "match": "Kärpät - Ässät",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "1",
+        "Ilpo": "1",
+        "Absolut": "1",
+        "Kari": "1",
+        "Pasi": "1"
+      }
+    },
+    {
+      "id": 2,
+      "date": "2026-09-05",
+      "match": "Kärpät - JYP",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "1",
+        "Ilpo": "1",
+        "Absolut": "1",
+        "Kari": "2",
+        "Pasi": "2"
+      }
+    },
+    {
+      "id": 3,
+      "date": "2026-09-16",
+      "match": "Kärpät - Ilves",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "2",
+        "Ilpo": "2",
+        "Absolut": "2",
+        "Kari": "2",
+        "Pasi": "1"
+      }
+    },
+    {
+      "id": 4,
+      "date": "2026-09-19",
+      "match": "Kärpät - Sport",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "1",
+        "Ilpo": "1",
+        "Absolut": "1",
+        "Kari": "1",
+        "Pasi": "1"
+      }
+    },
+    {
+      "id": 5,
+      "date": "2026-09-22",
+      "match": "Tappara - Kärpät",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "2",
+        "Ilpo": "2",
+        "Absolut": "1",
+        "Kari": "2",
+        "Pasi": "2"
+      }
+    },
+    {
+      "id": 6,
+      "date": "2026-09-23",
+      "match": "HIFK - Kärpät",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "1",
+        "Ilpo": "1",
+        "Absolut": "2",
+        "Kari": "2",
+        "Pasi": "2"
+      }
+    },
+    {
+      "id": 7,
+      "date": "2026-09-26",
+      "match": "Sport - Kärpät",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "1",
+        "Ilpo": "1",
+        "Absolut": "1",
+        "Kari": "1",
+        "Pasi": "2"
+      }
+    },
+    {
+      "id": 8,
+      "date": "2026-09-30",
+      "match": "Kärpät - SaiPa",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "1",
+        "Ilpo": "1",
+        "Absolut": "1",
+        "Kari": "1",
+        "Pasi": "2"
+      }
+    },
+    {
+      "id": 9,
+      "date": "2026-10-02",
+      "match": "K-Espoo - Kärpät",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "1",
+        "Ilpo": "1",
+        "Absolut": "2",
+        "Kari": "2",
+        "Pasi": "2"
+      }
+    },
+    {
+      "id": 10,
+      "date": "2026-10-03",
+      "match": "HPK - Kärpät",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "1",
+        "Ilpo": "1",
+        "Absolut": "1",
+        "Kari": "1",
+        "Pasi": "1"
+      }
+    },
+    {
+      "id": 11,
+      "date": "2026-10-06",
+      "match": "Kärpät - K-Espoo",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "1",
+        "Ilpo": "1",
+        "Absolut": "1",
+        "Kari": "1",
+        "Pasi": "1"
+      }
+    },
+    {
+      "id": 12,
+      "date": "2026-10-09",
+      "match": "Pelicans - Kärpät",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "2",
+        "Ilpo": "1",
+        "Absolut": "2",
+        "Kari": "2",
+        "Pasi": "1"
+      }
+    },
+    {
+      "id": 13,
+      "date": "2026-10-10",
+      "match": "Jukurit - Kärpät",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "1",
+        "Ilpo": "1",
+        "Absolut": "2",
+        "Kari": "1",
+        "Pasi": "1"
+      }
+    },
+    {
+      "id": 14,
+      "date": "2026-10-16",
+      "match": "JYP - Kärpät",
+      "result": "",
+      "predictions": {
+        "Asko": "2",
+        "Markus": "1",
+        "Ilpo": "1",
+        "Absolut": "1",
+        "Kari": "2",
+        "Pasi": "2"
+      }
+    },
+    {
+      "id": 15,
+      "date": "2026-10-17",
+      "match": "Kärpät - KooKoo",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "1",
+        "Ilpo": "1",
+        "Absolut": "1",
+        "Kari": "2",
+        "Pasi": "1"
+      }
+    },
+    {
+      "id": 16,
+      "date": "2026-10-20",
+      "match": "SaiPa - Kärpät",
+      "result": "",
+      "predictions": {
+        "Asko": "2",
+        "Markus": "1",
+        "Ilpo": "1",
+        "Absolut": "1",
+        "Kari": "2",
+        "Pasi": "1"
+      }
+    },
+    {
+      "id": 17,
+      "date": "2026-10-23",
+      "match": "Kärpät - KalPa",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "1",
+        "Ilpo": "2",
+        "Absolut": "2",
+        "Kari": "2",
+        "Pasi": "1"
+      }
+    },
+    {
+      "id": 18,
+      "date": "2026-10-24",
+      "match": "Kärpät - KalPa",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "2",
+        "Ilpo": "1",
+        "Absolut": "1",
+        "Kari": "1",
+        "Pasi": "2"
+      }
+    },
+    {
+      "id": 19,
+      "date": "2026-10-28",
+      "match": "Kärpät - HPK",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "1",
+        "Ilpo": "1",
+        "Absolut": "1",
+        "Kari": "1",
+        "Pasi": "1"
+      }
+    },
+    {
+      "id": 20,
+      "date": "2026-10-31",
+      "match": "Kärpät - Jukurit",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "1",
+        "Ilpo": "1",
+        "Absolut": "1",
+        "Kari": "1",
+        "Pasi": "1"
+      }
+    },
+    {
+      "id": 21,
+      "date": "2026-11-11",
+      "match": "JYP - Kärpät",
+      "result": "",
+      "predictions": {
+        "Asko": "2",
+        "Markus": "1",
+        "Ilpo": "2",
+        "Absolut": "1",
+        "Kari": "2",
+        "Pasi": "2"
+      }
+    },
+    {
+      "id": 22,
+      "date": "2026-11-14",
+      "match": "Kärpät - Tappara",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "2",
+        "Ilpo": "1",
+        "Absolut": "2",
+        "Kari": "2",
+        "Pasi": "2"
+      }
+    },
+    {
+      "id": 23,
+      "date": "2026-11-18",
+      "match": "TPS - Kärpät",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "1",
+        "Ilpo": "1",
+        "Absolut": "2",
+        "Kari": "1",
+        "Pasi": "1"
+      }
+    },
+    {
+      "id": 24,
+      "date": "2026-11-20",
+      "match": "KooKoo - Kärpät",
+      "result": "",
+      "predictions": {
+        "Asko": "2",
+        "Markus": "1",
+        "Ilpo": "2",
+        "Absolut": "1",
+        "Kari": "2",
+        "Pasi": "1"
+      }
+    },
+    {
+      "id": 25,
+      "date": "2026-11-21",
+      "match": "Kärpät - Jokerit",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "1",
+        "Ilpo": "2",
+        "Absolut": "1",
+        "Kari": "1",
+        "Pasi": "1"
+      }
+    },
+    {
+      "id": 26,
+      "date": "2026-11-25",
+      "match": "Kärpät - Pelicans",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "1",
+        "Ilpo": "2",
+        "Absolut": "1",
+        "Kari": "1",
+        "Pasi": "1"
+      }
+    },
+    {
+      "id": 27,
+      "date": "2026-11-28",
+      "match": "Ässät - Kärpät",
+      "result": "",
+      "predictions": {
+        "Asko": "2",
+        "Markus": "1",
+        "Ilpo": "1",
+        "Absolut": "1",
+        "Kari": "1",
+        "Pasi": "2"
+      }
+    },
+    {
+      "id": 28,
+      "date": "2026-12-02",
+      "match": "Ilves - Kärpät",
+      "result": "",
+      "predictions": {
+        "Asko": "2",
+        "Markus": "1",
+        "Ilpo": "1",
+        "Absolut": "1",
+        "Kari": "2",
+        "Pasi": "2"
+      }
+    },
+    {
+      "id": 29,
+      "date": "2026-12-04",
+      "match": "Lukko - Kärpät",
+      "result": "",
+      "predictions": {
+        "Asko": "2",
+        "Markus": "1",
+        "Ilpo": "2",
+        "Absolut": "1",
+        "Kari": "2",
+        "Pasi": "1"
+      }
+    },
+    {
+      "id": 30,
+      "date": "2026-12-05",
+      "match": "Lukko - Kärpät",
+      "result": "",
+      "predictions": {
+        "Asko": "2",
+        "Markus": "2",
+        "Ilpo": "1",
+        "Absolut": "2",
+        "Kari": "2",
+        "Pasi": "2"
+      }
+    },
+    {
+      "id": 31,
+      "date": "2026-12-09",
+      "match": "Jokerit - Kärpät",
+      "result": "",
+      "predictions": {
+        "Asko": "2",
+        "Markus": "1",
+        "Ilpo": "1",
+        "Absolut": "2",
+        "Kari": "2",
+        "Pasi": "1"
+      }
+    },
+    {
+      "id": 32,
+      "date": "2026-12-12",
+      "match": "Kärpät - HIFK",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "1",
+        "Ilpo": "1",
+        "Absolut": "1",
+        "Kari": "1",
+        "Pasi": "1"
+      }
+    },
+    {
+      "id": 33,
+      "date": "2026-12-15",
+      "match": "TPS - Kärpät",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "2",
+        "Ilpo": "1",
+        "Absolut": "1",
+        "Kari": "1",
+        "Pasi": "1"
+      }
+    },
+    {
+      "id": 34,
+      "date": "2026-12-17",
+      "match": "Kärpät - K-Espoo",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "1",
+        "Ilpo": "2",
+        "Absolut": "1",
+        "Kari": "1",
+        "Pasi": "1"
+      }
+    },
+    {
+      "id": 35,
+      "date": "2026-12-19",
+      "match": "Sport - Kärpät",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "1",
+        "Ilpo": "1",
+        "Absolut": "1",
+        "Kari": "1",
+        "Pasi": "1"
+      }
+    },
+    {
+      "id": 36,
+      "date": "2026-12-26",
+      "match": "Kärpät - JYP",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "2",
+        "Ilpo": "1",
+        "Absolut": "1",
+        "Kari": "2",
+        "Pasi": "2"
+      }
+    },
+    {
+      "id": 37,
+      "date": "2026-12-28",
+      "match": "KooKoo - Kärpät",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "1",
+        "Ilpo": "1",
+        "Absolut": "1",
+        "Kari": "2",
+        "Pasi": "2"
+      }
+    },
+    {
+      "id": 38,
+      "date": "2026-12-30",
+      "match": "Kärpät - Tappara",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "2",
+        "Ilpo": "1",
+        "Absolut": "2",
+        "Kari": "2",
+        "Pasi": "2"
+      }
+    },
+    {
+      "id": 39,
+      "date": "2027-01-02",
+      "match": "Kärpät - HPK",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "1",
+        "Ilpo": "1",
+        "Absolut": "1",
+        "Kari": "1",
+        "Pasi": "1"
+      }
+    },
+    {
+      "id": 40,
+      "date": "2027-01-08",
+      "match": "Kärpät - Jokerit",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "1",
+        "Ilpo": "2",
+        "Absolut": "1",
+        "Kari": "2",
+        "Pasi": "1"
+      }
+    },
+    {
+      "id": 41,
+      "date": "2027-01-09",
+      "match": "Jokerit - Kärpät",
+      "result": "",
+      "predictions": {
+        "Asko": "2",
+        "Markus": "1",
+        "Ilpo": "1",
+        "Absolut": "1",
+        "Kari": "2",
+        "Pasi": "1"
+      }
+    },
+    {
+      "id": 42,
+      "date": "2027-01-14",
+      "match": "Kärpät - Pelicans",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "2",
+        "Ilpo": "1",
+        "Absolut": "1",
+        "Kari": "1",
+        "Pasi": "1"
+      }
+    },
+    {
+      "id": 43,
+      "date": "2027-01-16",
+      "match": "SaiPa - Kärpät",
+      "result": "",
+      "predictions": {
+        "Asko": "2",
+        "Markus": "1",
+        "Ilpo": "2",
+        "Absolut": "1",
+        "Kari": "2",
+        "Pasi": "1"
+      }
+    },
+    {
+      "id": 44,
+      "date": "2027-01-19",
+      "match": "Kärpät - Sport",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "1",
+        "Ilpo": "2",
+        "Absolut": "1",
+        "Kari": "1",
+        "Pasi": "1"
+      }
+    },
+    {
+      "id": 45,
+      "date": "2027-01-22",
+      "match": "Tappara - Kärpät",
+      "result": "",
+      "predictions": {
+        "Asko": "2",
+        "Markus": "1",
+        "Ilpo": "1",
+        "Absolut": "1",
+        "Kari": "2",
+        "Pasi": "2"
+      }
+    },
+    {
+      "id": 46,
+      "date": "2027-01-23",
+      "match": "K-Espoo - Kärpät",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "1",
+        "Ilpo": "2",
+        "Absolut": "2",
+        "Kari": "1",
+        "Pasi": "2"
+      }
+    },
+    {
+      "id": 47,
+      "date": "2027-01-30",
+      "match": "Kärpät - KooKoo",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "1",
+        "Ilpo": "1",
+        "Absolut": "1",
+        "Kari": "1",
+        "Pasi": "1"
+      }
+    },
+    {
+      "id": 48,
+      "date": "2027-02-02",
+      "match": "Ilves - Kärpät",
+      "result": "",
+      "predictions": {
+        "Asko": "2",
+        "Markus": "2",
+        "Ilpo": "2",
+        "Absolut": "1",
+        "Kari": "2",
+        "Pasi": "1"
+      }
+    },
+    {
+      "id": 49,
+      "date": "2027-02-04",
+      "match": "HIFK - Kärpät",
+      "result": "",
+      "predictions": {
+        "Asko": "2",
+        "Markus": "2",
+        "Ilpo": "2",
+        "Absolut": "1",
+        "Kari": "2",
+        "Pasi": "2"
+      }
+    },
+    {
+      "id": 50,
+      "date": "2027-02-06",
+      "match": "Kärpät - Ässät",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "1",
+        "Ilpo": "1",
+        "Absolut": "1",
+        "Kari": "1",
+        "Pasi": "1"
+      }
+    },
+    {
+      "id": 51,
+      "date": "2027-02-16",
+      "match": "Kärpät - TPS",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "1",
+        "Ilpo": "2",
+        "Absolut": "1",
+        "Kari": "1",
+        "Pasi": "1"
+      }
+    },
+    {
+      "id": 52,
+      "date": "2027-02-19",
+      "match": "KalPa - Kärpät",
+      "result": "",
+      "predictions": {
+        "Asko": "2",
+        "Markus": "1",
+        "Ilpo": "1",
+        "Absolut": "1",
+        "Kari": "2",
+        "Pasi": "2"
+      }
+    },
+    {
+      "id": 53,
+      "date": "2027-02-20",
+      "match": "KalPa - Kärpät",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "1",
+        "Ilpo": "1",
+        "Absolut": "2",
+        "Kari": "1",
+        "Pasi": "2"
+      }
+    },
+    {
+      "id": 54,
+      "date": "2027-02-23",
+      "match": "Jukurit - Kärpät",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "1",
+        "Ilpo": "1",
+        "Absolut": "1",
+        "Kari": "1",
+        "Pasi": "1"
+      }
+    },
+    {
+      "id": 55,
+      "date": "2027-02-26",
+      "match": "Kärpät - Ilves",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "1",
+        "Ilpo": "2",
+        "Absolut": "1",
+        "Kari": "1",
+        "Pasi": "1"
+      }
+    },
+    {
+      "id": 56,
+      "date": "2027-02-28",
+      "match": "Ässät - Kärpät",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "1",
+        "Ilpo": "1",
+        "Absolut": "2",
+        "Kari": "2",
+        "Pasi": "1"
+      }
+    },
+    {
+      "id": 57,
+      "date": "2027-03-05",
+      "match": "Kärpät - Lukko",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "1",
+        "Ilpo": "1",
+        "Absolut": "1",
+        "Kari": "1",
+        "Pasi": "1"
+      }
+    },
+    {
+      "id": 58,
+      "date": "2027-03-06",
+      "match": "Kärpät - Lukko",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "1",
+        "Ilpo": "2",
+        "Absolut": "2",
+        "Kari": "2",
+        "Pasi": "1"
+      }
+    },
+    {
+      "id": 59,
+      "date": "2027-03-11",
+      "match": "Pelicans - Kärpät",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "1",
+        "Ilpo": "1",
+        "Absolut": "1",
+        "Kari": "1",
+        "Pasi": "1"
+      }
+    },
+    {
+      "id": 60,
+      "date": "2027-03-13",
+      "match": "Kärpät - HIFK",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "2",
+        "Ilpo": "1",
+        "Absolut": "1",
+        "Kari": "1",
+        "Pasi": "1"
+      }
+    },
+    {
+      "id": 61,
+      "date": "2027-03-16",
+      "match": "Kärpät - SaiPa",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "1",
+        "Ilpo": "1",
+        "Absolut": "1",
+        "Kari": "1",
+        "Pasi": "1"
+      }
+    },
+    {
+      "id": 62,
+      "date": "2027-03-18",
+      "match": "Kärpät - TPS",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "1",
+        "Ilpo": "1",
+        "Absolut": "1",
+        "Kari": "1",
+        "Pasi": "1"
+      }
+    },
+    {
+      "id": 63,
+      "date": "2027-03-20",
+      "match": "HPK - Kärpät",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "2",
+        "Ilpo": "1",
+        "Absolut": "2",
+        "Kari": "2",
+        "Pasi": "1"
+      }
+    },
+    {
+      "id": 64,
+      "date": "2027-03-23",
+      "match": "Kärpät - Jukurit",
+      "result": "",
+      "predictions": {
+        "Asko": "1",
+        "Markus": "1",
+        "Ilpo": "1",
+        "Absolut": "1",
+        "Kari": "1",
+        "Pasi": "1"
+      }
     }
   ]
 }
