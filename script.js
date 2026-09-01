@@ -1,4 +1,4 @@
-// Erikoisveikkaukset Excel-tiedostosta
+// Erikoisveikkaukset (pääteveikkaukset)
 const otherPredictionsData = {
     players: ["Asko", "Markus", "Ilpo", "Absolut", "Kari", "Pasi"],
     rows: [
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
             renderOtherPredictions();
         })
         .catch(error => {
-            console.error('Virhe:', error);
+            console.error('Virhe data.json-tiedoston latauksessa:', error);
             renderOtherPredictions();
         });
 });
@@ -65,11 +65,14 @@ function switchTab(tabName) {
 
 function updateStats(players, matches) {
     const totalPlayers = players ? players.length : 6;
-    const playedMatches = matches ? matches.filter(m => m.result && m.result.trim() !== "").length : 0;
+    const playedMatches = matches ? matches.filter(m => m.result && m.result.toString().trim() !== "").length : 0;
     const totalMatches = matches ? matches.length : 0;
 
-    document.getElementById('stat-players').innerText = totalPlayers;
-    document.getElementById('stat-matches').innerText = `${playedMatches} / ${totalMatches}`;
+    const elPlayers = document.getElementById('stat-players');
+    const elMatches = document.getElementById('stat-matches');
+
+    if (elPlayers) elPlayers.innerText = totalPlayers;
+    if (elMatches) elMatches.innerText = `${playedMatches} / ${totalMatches}`;
 }
 
 function renderStandings(players, matches) {
@@ -81,19 +84,21 @@ function renderStandings(players, matches) {
 
     if (matches) {
         matches.forEach(match => {
-            if (match.result && match.result.trim() !== "") {
-                const res = match.result.trim();
+            if (match.result && match.result.toString().trim() !== "") {
+                const res = match.result.toString().trim();
                 const counts = { "1": 0, "X": 0, "2": 0 };
                 
                 Object.values(match.predictions || {}).forEach(pick => {
-                    if (counts[pick] !== undefined) counts[pick]++;
+                    const pStr = pick.toString().trim();
+                    if (counts[pStr] !== undefined) counts[pStr]++;
                 });
 
                 Object.entries(match.predictions || {}).forEach(([player, pick]) => {
-                    if (stats[player] && pick === res) {
+                    const pStr = pick.toString().trim();
+                    if (stats[player] && pStr === res) {
                         stats[player].correct++;
-                        const pickCount = counts[pick];
-                        const otherCounts = Object.keys(counts).filter(k => k !== pick && counts[k] > 0).map(k => counts[k]);
+                        const pickCount = counts[pStr];
+                        const otherCounts = Object.keys(counts).filter(k => k !== pStr && counts[k] > 0).map(k => counts[k]);
 
                         if (otherCounts.length === 0 || otherCounts.every(c => c === pickCount)) {
                             stats[player].points += 1.5;
@@ -110,8 +115,9 @@ function renderStandings(players, matches) {
 
     const sorted = Object.values(stats).sort((a, b) => b.points - a.points || b.correct - a.correct);
 
-    if (sorted.length > 0) {
-        document.getElementById('stat-top-points').innerText = `${sorted[0].points.toFixed(1).replace('.', ',')} p`;
+    const topPointsEl = document.getElementById('stat-top-points');
+    if (topPointsEl && sorted.length > 0) {
+        topPointsEl.innerText = `${sorted[0].points.toFixed(1).replace('.', ',')} p`;
     }
 
     const medalIcons = ['🥇', '🥈', '🥉'];
@@ -138,7 +144,7 @@ function renderMatchesTable(matches) {
                     <tr>
                         <th>Pvm</th>
                         <th>Ottelu</th>
-                        <th>Tila / Tulos</th>
+                        <th>Tulos</th>
                         <th>Veikkaukset</th>
                     </tr>
                 </thead>
@@ -146,14 +152,27 @@ function renderMatchesTable(matches) {
     `;
 
     matches.forEach(match => {
-        const home = match.homeTeam || match.koti || match.home || "Koti";
-        const away = match.awayTeam || match.vieras || match.away || "Vieras";
+        // Luetaan ottelupari kaikista mahdollisista JSON-muodoista
+        let matchName = "";
+
+        if (match.match) {
+            matchName = match.match;
+        } else if (match.homeTeam && match.awayTeam) {
+            matchName = `${match.homeTeam} – ${match.awayTeam}`;
+        } else if (match.koti && match.vieras) {
+            matchName = `${match.koti} – ${match.vieras}`;
+        } else if (match.home_team && match.away_team) {
+            matchName = `${match.home_team} – ${match.away_team}`;
+        } else {
+            matchName = "Ottelu";
+        }
+
         const date = match.date || match.pvm || match.aika || "-";
-        const isPlayed = match.result && match.result.trim() !== "";
+        const isPlayed = match.result !== undefined && match.result !== null && match.result.toString().trim() !== "";
 
         let predictionsHtml = '<div class="table-predictions">';
         for (const [player, pick] of Object.entries(match.predictions || {})) {
-            const isCorrect = isPlayed && pick === match.result.trim();
+            const isCorrect = isPlayed && pick.toString().trim() === match.result.toString().trim();
             predictionsHtml += `
                 <span class="pred-tag ${isCorrect ? 'correct' : ''}">
                     <small>${player}:</small> <strong>${pick}</strong>
@@ -165,7 +184,7 @@ function renderMatchesTable(matches) {
         html += `
             <tr>
                 <td class="col-date">${date}</td>
-                <td class="col-match">${home} – ${away}</td>
+                <td class="col-match"><strong>${matchName}</strong></td>
                 <td class="col-status">
                     <span class="badge ${isPlayed ? 'badge-played' : 'badge-upcoming'}">
                         ${isPlayed ? match.result : 'Tuleva'}
@@ -180,7 +199,6 @@ function renderMatchesTable(matches) {
     container.innerHTML = html;
 }
 
-// Generoi "Muut veikkaukset" -välilehden taulukon
 function renderOtherPredictions() {
     const container = document.getElementById('other-container');
     if (!container) return;
