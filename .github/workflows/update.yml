@@ -2,9 +2,9 @@ name: Automatisoitu tulospäivitys
 
 on:
   schedule:
-    # Ajaa skriptin joka ilta klo 22.00 Suomen aikaa (19.00 UTC)
-    - cron: '0 19 * * *'
-  workflow_dispatch: # Mahdollistaa käynnistyksen käsin GitHubista
+    # Ajaa 15 min välein klo 12:00–19:00 UTC (noin klo 15:00–22:00 Suomen aikaa)
+    - cron: '*/15 12-19 * * *'
+  workflow_dispatch: # Mahdollistaa käynnistyksen myös käsin
 
 jobs:
   update-data:
@@ -32,5 +32,5 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add data.json
-          git commit -m "Automaattinen tulospäivitys API:sta" || exit 0
+          git commit -m "Live-tulospäivitys API:sta" || exit 0
           git push
