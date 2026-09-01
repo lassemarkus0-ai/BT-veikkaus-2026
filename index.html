@@ -25,11 +25,10 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
         }
 
-        /* Hero-otsikko */
         .header {
             text-align: center;
             margin-bottom: 25px;
@@ -52,7 +51,7 @@
             font-size: 14px;
         }
 
-        /* Yläosan tilastokortit */
+        /* Tilastokortit */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -79,7 +78,7 @@
             margin-top: 4px;
         }
 
-        /* Välilehdet (Tabs) */
+        /* Välilehdet */
         .tabs {
             display: flex;
             justify-content: center;
@@ -145,22 +144,48 @@
             font-size: 16px;
         }
 
-        /* Ottelukortit */
-        .match-card {
+        /* Ottelu- ja Muut veikkaukset -taulukot */
+        .table-wrapper {
+            overflow-x: auto;
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 8px;
-            padding: 16px;
-            margin-bottom: 12px;
         }
 
-        .match-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .matches-table, .other-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .matches-table th, .matches-table td,
+        .other-table th, .other-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .matches-table th, .other-table th {
+            background-color: rgba(255, 255, 255, 0.03);
+            color: var(--text-muted);
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .other-table td:first-child {
+            font-weight: 600;
+            color: var(--accent-gold);
+            min-width: 220px;
+        }
+
+        .col-date {
+            white-space: nowrap;
+            color: var(--text-muted);
+        }
+
+        .col-match {
             font-weight: bold;
-            font-size: 15px;
-            margin-bottom: 10px;
+            white-space: nowrap;
         }
 
         .badge {
@@ -169,48 +194,30 @@
             border-radius: 4px;
             text-transform: uppercase;
             font-weight: bold;
+            display: inline-block;
         }
 
         .badge-played { background-color: rgba(5, 150, 105, 0.2); color: #34d399; }
         .badge-upcoming { background-color: rgba(37, 99, 235, 0.2); color: #60a5fa; }
 
-        .predictions-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-            gap: 8px;
-            margin-top: 10px;
-        }
-
-        .prediction-item {
-            background-color: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border-color);
-            padding: 6px 10px;
-            border-radius: 6px;
+        .table-predictions {
             display: flex;
-            justify-content: space-between;
-            font-size: 13px;
+            flex-wrap: wrap;
+            gap: 6px;
         }
 
-        .prediction-item.correct {
-            border-color: var(--accent-gold);
-            background-color: rgba(245, 158, 11, 0.1);
-        }
-
-        .pick-tag {
-            background: #1e2d4a;
-            color: var(--accent-gold);
-            font-weight: bold;
-            padding: 1px 6px;
-            border-radius: 4px;
-        }
-
-        .empty-card {
-            background-color: var(--card-bg);
+        .pred-tag {
+            background-color: rgba(255, 255, 255, 0.04);
             border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 20px;
-            text-align: center;
-            color: var(--text-muted);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .pred-tag.correct {
+            border-color: var(--accent-gold);
+            background-color: rgba(245, 158, 11, 0.15);
+            color: var(--accent-gold);
         }
     </style>
 </head>
@@ -222,7 +229,6 @@
             <p>Kärppien runkosarjaotteluiden veikkauskimppa</p>
         </div>
 
-        <!-- Tilastokortit -->
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-value" id="stat-players">0</div>
@@ -238,28 +244,22 @@
             </div>
         </div>
 
-        <!-- Välilehdet -->
         <div class="tabs">
             <button class="tab-btn active" onclick="switchTab('standings')">Sarjataulukko</button>
             <button class="tab-btn" onclick="switchTab('matches')">Ottelut</button>
             <button class="tab-btn" onclick="switchTab('other')">Muut veikkaukset</button>
         </div>
 
-        <!-- Välilehti 1: Sarjataulukko -->
         <div id="tab-standings" class="tab-content active">
             <div id="standings-container" class="standings-list">Ladataan...</div>
         </div>
 
-        <!-- Välilehti 2: Ottelut -->
         <div id="tab-matches" class="tab-content">
             <div id="matches-container">Ladataan...</div>
         </div>
 
-        <!-- Välilehti 3: Muut veikkaukset -->
         <div id="tab-other" class="tab-content">
-            <div class="empty-card" id="other-container">
-                <!-- Tähän voidaan myöhemmin lisätä erikoisveikkauksia -->
-            </div>
+            <div id="other-container">Ladataan...</div>
         </div>
     </div>
 
