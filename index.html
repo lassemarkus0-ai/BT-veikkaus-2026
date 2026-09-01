@@ -3,254 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BT-Veikkaus 2026 – Kärpät</title>
+    <title>BT-VEIKKAUS 2026</title>
     <style>
-        :root {
-            --karpat-yellow: #ffcc00;
-            --karpat-black: #111111;
-            --bg-gray: #f4f4f9;
-            --card-bg: #ffffff;
-        }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-gray);
-            color: var(--karpat-black);
+            font-family: Arial, sans-serif;
+            background-color: #f4f5f7;
             margin: 0;
             padding: 20px;
+            color: #333;
         }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        header {
-            background-color: var(--karpat-black);
-            color: var(--karpat-yellow);
-            padding: 20px;
+        .header {
+            background-color: #111;
+            color: #ffcc00;
             text-align: center;
+            padding: 20px;
             border-radius: 8px;
             margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-
-        h1 {
+        .header h1 {
             margin: 0;
-            font-size: 2em;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-size: 28px;
         }
-
-        .card {
-            background: var(--card-bg);
+        .header p {
+            margin: 5px 0 0 0;
+            color: #fff;
+        }
+        .section {
+            background: #fff;
             padding: 20px;
             border-radius: 8px;
+            margin-bottom: 20px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            margin-bottom: 25px;
         }
-
-        h2 {
+        .section h2 {
             margin-top: 0;
-            border-bottom: 2px solid var(--karpat-yellow);
+            border-bottom: 2px solid #ffcc00;
             padding-bottom: 8px;
         }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #f8f8f8;
-            font-weight: bold;
-        }
-
-        tr:hover {
-            background-color: #f1f1f1;
-        }
-
-        .pos {
-            font-weight: bold;
-            width: 40px;
-            text-align: center;
-        }
-
-        .badge {
-            background-color: var(--karpat-black);
-            color: var(--karpat-yellow);
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-weight: bold;
-            font-size: 0.9em;
-        }
-
-        .info-box {
-            font-size: 0.9em;
-            color: #555;
-            background-color: #fff8dc;
-            border-left: 4px solid var(--karpat-yellow);
+        .rules {
+            background-color: #fffde7;
+            border-left: 4px solid #ffcc00;
             padding: 10px 15px;
             margin-bottom: 15px;
+            font-size: 14px;
+        }
+        .match-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background-color: #fafafa;
+        }
+        .match-card h3 {
+            margin: 0 0 10px 0;
+            color: #111;
+        }
+        .predictions ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 5px 0 0 0;
+        }
+        .predictions li {
+            display: inline-block;
+            background: #e9ecef;
+            padding: 4px 10px;
+            margin-right: 8px;
+            margin-top: 5px;
+            border-radius: 4px;
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <h1>BT-Veikkaus 2026</h1>
-        <p style="margin: 5px 0 0 0;">Kärppien runkosarjaotteluiden veikkauskimppa</p>
-    </header>
-
-    <div class="card">
-        <h2>Sarjataulukko</h2>
-        <div id="leaderboard-loading">Ladataan pisteitä...</div>
-        <table id="leaderboard" style="display: none;">
-            <thead>
-                <tr>
-                    <th class="pos">#</th>
-                    <th>Veikkaaja</th>
-                    <th>Oikein</th>
-                    <th>Pisteet</th>
-                </tr>
-            </thead>
-            <tbody id="leaderboard-body"></tbody>
-        </table>
+    <div class="header">
+        <h1>BT-VEIKKAUS 2026</h1>
+        <p>Kärppien runkosarjaotteluiden veikkauskimppa</p>
     </div>
 
-    <div class="card">
+    <div class="section">
+        <h2>Sarjataulukko</h2>
+        <div id="standings-container">Ladataan sarjataulukkoa...</div>
+    </div>
+
+    <div class="section">
         <h2>Otteluhistoria ja Kerroinlaskenta</h2>
-        <div class="info-box">
+        <div class="rules">
             <strong>Pistelaskusäännöt:</strong><br>
             Eniten veikattu merkki = <strong>1 p</strong> | Vähiten veikattu merkki = <strong>2 p</strong> | Tasavertaiset veikkaukset = <strong>1,5 p</strong>
         </div>
-        <div id="matches-loading">Ladataan otteluita...</div>
-        <table id="matches" style="display: none;">
-            <thead>
-                <tr>
-                    <th>Ottelu</th>
-                    <th>Tulos</th>
-                    <th>Veikkaukset (1 / 2)</th>
-                    <th>Painokerroin</th>
-                </tr>
-            </thead>
-            <tbody id="matches-body"></tbody>
-        </table>
+
+        <!-- Tähän säiliöön script.js tulostaa pelatut ja tulevat ottelut -->
+        <div id="matches-container">Ladataan otteluita...</div>
     </div>
-</div>
 
-<script>
-    // Kärppä-pistelaskentalogiikka
-    function calculateMultiplier(count1, count2, actualResult) {
-        if (count1 === count2) {
-            return 1.5; // Tasan yhtä paljon veikattu
-        }
-        
-        const mostBet = count1 > count2 ? "1" : "2";
-        
-        if (actualResult === mostBet) {
-            return 1;   // Suosikki voitti (eniten veikattu)
-        } else {
-            return 2;   // Yllätys voitti (vähiten veikattu)
-        }
-    }
-
-    // Tiedatetaan tiedot data.json-tiedostosta
-    async function loadData() {
-        try {
-            const response = await fetch('data.json');
-            if (!response.ok) throw new Error('data.json-tiedostoa ei löytynyt');
-            const data = await response.json();
-            
-            processAndRender(data);
-        } catch (error) {
-            console.error('Virhe ladattaessa dataa:', error);
-            document.getElementById('leaderboard-loading').innerText = 'Virhe ladattaessa tietoja data.json-tiedostosta.';
-            document.getElementById('matches-loading').innerText = 'Tarkista, että data.json on olemassa samassa kansiossa.';
-        }
-    }
-
-    function processAndRender(data) {
-        const playerScores = {};
-        
-        // Alustetaan pelaajat
-        data.players.forEach(player => {
-            playerScores[player] = { name: player, correct: 0, points: 0 };
-        });
-
-        const matchesTableBody = document.getElementById('matches-body');
-        matchesTableBody.innerHTML = '';
-
-        // Käydään ottelut läpi ja lasketaan pisteet
-        data.matches.forEach(match => {
-            let count1 = 0;
-            let count2 = 0;
-
-            // Lasketaan veikkausten jakauma (1 vs 2)
-            Object.values(match.bets).forEach(bet => {
-                if (bet === "1") count1++;
-                if (bet === "2") count2++;
-            });
-
-            const multiplier = calculateMultiplier(count1, count2, match.result);
-
-            // Päivitetään pelaajien pisteet
-            Object.entries(match.bets).forEach(([player, bet]) => {
-                if (playerScores[player]) {
-                    if (bet === match.result) {
-                        playerScores[player].correct += 1;
-                        playerScores[player].points += multiplier;
-                    }
-                }
-            });
-
-            // Lisätään rivi ottelutaulukkoon
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td><strong>${match.home} - ${match.away}</strong><br><small>${match.date}</small></td>
-                <td><span class="badge">${match.result}</span></td>
-                <td>1: <strong>${count1}</strong> kpl | 2: <strong>${count2}</strong> kpl</td>
-                <td><strong>${multiplier}</strong></td>
-            `;
-            matchesTableBody.appendChild(tr);
-        });
-
-        // Järjestetään pelaajat pisteiden mukaan
-        const sortedPlayers = Object.values(playerScores).sort((a, b) => b.points - a.points);
-
-        // Renderöidään sarjataulukko
-        const leaderboardBody = document.getElementById('leaderboard-body');
-        leaderboardBody.innerHTML = '';
-        
-        sortedPlayers.forEach((player, index) => {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td class="pos">${index + 1}.</td>
-                <td><strong>${player.name}</strong></td>
-                <td>${player.correct} / ${data.matches.length}</td>
-                <td><strong>${player.points} p</strong></td>
-            `;
-            leaderboardBody.appendChild(tr);
-        });
-
-        // Näytetään taulukot
-        document.getElementById('leaderboard-loading').style.display = 'none';
-        document.getElementById('matches-loading').style.display = 'none';
-        document.getElementById('leaderboard').style.display = 'table';
-        document.getElementById('matches').style.display = 'table';
-    }
-
-    // Käynnistetään lataus sivun avautuessa
-    document.addEventListener('DOMContentLoaded', loadData);
-</script>
-
+    <!-- Kytkentä script.js-tiedostoon -->
+    <script src="script.js"></script>
 </body>
 </html>
