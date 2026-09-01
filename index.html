@@ -6,109 +6,152 @@
     <title>BT-VEIKKAUS 2026</title>
     <style>
         :root {
-            --bg-color: #f4f5f7;
-            --card-bg: #ffffff;
-            --primary-color: #111111;
-            --accent-color: #ffcc00;
-            --border-color: #e0e0e0;
-            --text-color: #333333;
-            --correct-bg: #e8f5e9;
-            --correct-border: #81c784;
+            --bg-color: #0b1320;
+            --card-bg: #111a2e;
+            --border-color: #1e2d4a;
+            --accent-gold: #f59e0b;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --badge-played: #059669;
+            --badge-upcoming: #2563eb;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background-color: var(--bg-color);
-            color: var(--text-color);
+            color: var(--text-main);
             margin: 0;
-            padding: 15px;
+            padding: 20px 15px;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
+        /* Hero-otsikko */
         .header {
-            background-color: var(--primary-color);
-            color: var(--accent-color);
             text-align: center;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
         }
 
         .header h1 {
+            font-size: 32px;
             margin: 0;
-            font-size: 26px;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            color: #ffffff;
+        }
+
+        .header h1 span {
+            color: var(--accent-gold);
         }
 
         .header p {
-            margin: 5px 0 0 0;
-            color: #ffffff;
+            margin: 6px 0 0 0;
+            color: var(--text-muted);
             font-size: 14px;
         }
 
-        .section {
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        /* Yläosan tilastokortit */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 25px;
         }
 
-        .section h2 {
-            margin-top: 0;
-            border-bottom: 3px solid var(--accent-color);
-            padding-bottom: 8px;
-            font-size: 20px;
+        .stat-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 16px;
         }
 
-        /* Taulukko */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-
-        th, td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        th {
-            background-color: #f8f9fa;
+        .stat-value {
+            font-size: 24px;
             font-weight: bold;
+            color: #ffffff;
         }
 
-        /* Säännöt */
-        .rules {
-            background-color: #fffde7;
-            border-left: 4px solid var(--accent-color);
-            padding: 10px 15px;
-            margin-bottom: 20px;
+        .stat-label {
             font-size: 13px;
-            border-radius: 0 4px 4px 0;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* Välilehdet (Tabs) */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 15px;
+            font-weight: 600;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-main);
+        }
+
+        .tab-btn.active {
+            color: var(--accent-gold);
+            border-bottom-color: var(--accent-gold);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Sarjataulukko */
+        .standings-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .standing-row {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 14px 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .standing-player {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .standing-points {
+            color: var(--accent-gold);
+            font-weight: bold;
+            font-size: 16px;
         }
 
         /* Ottelukortit */
         .match-card {
+            background-color: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 15px;
-            margin-bottom: 15px;
-            background-color: #fff;
-        }
-
-        .match-card.upcoming {
-            border-left: 4px solid #2196f3;
-        }
-
-        .match-card.played {
-            border-left: 4px solid #4caf50;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
         }
 
         .match-header {
@@ -116,38 +159,21 @@
             justify-content: space-between;
             align-items: center;
             font-weight: bold;
-            font-size: 16px;
-            margin-bottom: 8px;
-        }
-
-        .match-date {
-            font-size: 12px;
-            color: #666;
-            font-weight: normal;
-        }
-
-        .match-status {
-            margin-bottom: 12px;
+            font-size: 15px;
+            margin-bottom: 10px;
         }
 
         .badge {
-            display: inline-block;
+            font-size: 11px;
             padding: 3px 8px;
             border-radius: 4px;
-            font-size: 12px;
+            text-transform: uppercase;
+            font-weight: bold;
         }
 
-        .result-badge {
-            background-color: #e8f5e9;
-            color: #2e7d32;
-        }
+        .badge-played { background-color: rgba(5, 150, 105, 0.2); color: #34d399; }
+        .badge-upcoming { background-color: rgba(37, 99, 235, 0.2); color: #60a5fa; }
 
-        .upcoming-badge {
-            background-color: #e3f2fd;
-            color: #1565c0;
-        }
-
-        /* Veikkaukset ruudukossa */
         .predictions-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
@@ -156,28 +182,35 @@
         }
 
         .prediction-item {
+            background-color: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            padding: 6px 10px;
+            border-radius: 6px;
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            background: #f8f9fa;
-            padding: 6px 10px;
-            border-radius: 4px;
-            border: 1px solid #eee;
             font-size: 13px;
         }
 
-        .prediction-item.correct-pick {
-            background-color: var(--correct-bg);
-            border-color: var(--correct-border);
-            font-weight: bold;
+        .prediction-item.correct {
+            border-color: var(--accent-gold);
+            background-color: rgba(245, 158, 11, 0.1);
         }
 
-        .pick-badge {
-            background: #111;
-            color: #fff;
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-size: 11px;
+        .pick-tag {
+            background: #1e2d4a;
+            color: var(--accent-gold);
+            font-weight: bold;
+            padding: 1px 6px;
+            border-radius: 4px;
+        }
+
+        .empty-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            color: var(--text-muted);
         }
     </style>
 </head>
@@ -185,23 +218,48 @@
 
     <div class="container">
         <div class="header">
-            <h1>BT-VEIKKAUS 2026</h1>
+            <h1>BT-VEIKKAUS <span>2026</span></h1>
             <p>Kärppien runkosarjaotteluiden veikkauskimppa</p>
         </div>
 
-        <div class="section">
-            <h2>Sarjataulukko</h2>
-            <div id="standings-container">Ladataan sarjataulukkoa...</div>
+        <!-- Tilastokortit -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value" id="stat-players">0</div>
+                <div class="stat-label">Pelaajaa</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="stat-matches">0 / 0</div>
+                <div class="stat-label">Ottelua pelattu</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="stat-top-points">0.0 p</div>
+                <div class="stat-label">Kärkipistettä</div>
+            </div>
         </div>
 
-        <div class="section">
-            <h2>Otteluhistoria ja Kerroinlaskenta</h2>
-            <div class="rules">
-                <strong>Pistelaskusäännöt:</strong><br>
-                Eniten veikattu merkki = <strong>1 p</strong> | Vähiten veikattu merkki = <strong>2 p</strong> | Tasavertaiset veikkaukset = <strong>1,5 p</strong>
-            </div>
+        <!-- Välilehdet -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('standings')">Sarjataulukko</button>
+            <button class="tab-btn" onclick="switchTab('matches')">Ottelut</button>
+            <button class="tab-btn" onclick="switchTab('other')">Muut veikkaukset</button>
+        </div>
 
-            <div id="matches-container">Ladataan otteluita...</div>
+        <!-- Välilehti 1: Sarjataulukko -->
+        <div id="tab-standings" class="tab-content active">
+            <div id="standings-container" class="standings-list">Ladataan...</div>
+        </div>
+
+        <!-- Välilehti 2: Ottelut -->
+        <div id="tab-matches" class="tab-content">
+            <div id="matches-container">Ladataan...</div>
+        </div>
+
+        <!-- Välilehti 3: Muut veikkaukset -->
+        <div id="tab-other" class="tab-content">
+            <div class="empty-card" id="other-container">
+                <!-- Tähän voidaan myöhemmin lisätä erikoisveikkauksia -->
+            </div>
         </div>
     </div>
 
