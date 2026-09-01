@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(data => {
             updateStats(data.players, data.matches);
             renderStandings(data.players, data.matches);
-            renderMatches(data.matches);
+            renderMatchesTable(data.matches);
         })
         .catch(error => console.error('Virhe:', error));
 });
@@ -29,7 +29,7 @@ function switchTab(tabName) {
     }
 }
 
-// Päivittää yläpalkin 3 tilastokorttia
+// Päivittää yläpalkin tilastot
 function updateStats(players, matches) {
     const totalPlayers = players.length;
     const playedMatches = matches.filter(m => m.result && m.result.trim() !== "").length;
@@ -39,7 +39,7 @@ function updateStats(players, matches) {
     document.getElementById('stat-matches').innerText = `${playedMatches} / ${totalMatches}`;
 }
 
-// Sarjataulukon laskenta ja järjestäminen
+// Sarjataulukon laskenta
 function renderStandings(players, matches) {
     const container = document.getElementById('standings-container');
     if (!container) return;
@@ -52,11 +52,11 @@ function renderStandings(players, matches) {
             const res = match.result.trim();
             const counts = { "1": 0, "X": 0, "2": 0 };
             
-            Object.values(match.predictions).forEach(pick => {
+            Object.values(match.predictions || {}).forEach(pick => {
                 if (counts[pick] !== undefined) counts[pick]++;
             });
 
-            Object.entries(match.predictions).forEach(([player, pick]) => {
+            Object.entries(match.predictions || {}).forEach(([player, pick]) => {
                 if (stats[player] && pick === res) {
                     stats[player].correct++;
                     const pickCount = counts[pick];
@@ -76,7 +76,6 @@ function renderStandings(players, matches) {
 
     const sorted = Object.values(stats).sort((a, b) => b.points - a.points || b.correct - a.correct);
 
-    // Asetetaan kärkipisteet yläkorttiin
     if (sorted.length > 0) {
         document.getElementById('stat-top-points').innerText = `${sorted[0].points.toFixed(1).replace('.', ',')} p`;
     }
@@ -94,36 +93,57 @@ function renderStandings(players, matches) {
     }).join('');
 }
 
-// Otteluiden tulostus
-function renderMatches(matches) {
+// Otteluiden tulostus TAULUKKONA (pvm, ottelu, tilanne, veikkaukset)
+function renderMatchesTable(matches) {
     const container = document.getElementById('matches-container');
     if (!container) return;
 
-    container.innerHTML = matches.map(match => {
+    let html = `
+        <div class="table-wrapper">
+            <table class="matches-table">
+                <thead>
+                    <tr>
+                        <th>Pvm</th>
+                        <th>Ottelu</th>
+                        <th>Tila / Tulos</th>
+                        <th>Veikkaukset</th>
+                    </tr>
+                </thead>
+                <tbody>
+    `;
+
+    matches.forEach(match => {
+        // Tunnistetaan kentät joustavasti
+        const home = match.homeTeam || match.koti || match.home || "Koti";
+        const away = match.awayTeam || match.vieras || match.away || "Vieras";
+        const date = match.date || match.pvm || match.aika || "-";
         const isPlayed = match.result && match.result.trim() !== "";
-        
-        let predictionsHtml = '<div class="predictions-grid">';
+
+        let predictionsHtml = '<div class="table-predictions">';
         for (const [player, pick] of Object.entries(match.predictions || {})) {
             const isCorrect = isPlayed && pick === match.result.trim();
             predictionsHtml += `
-                <div class="prediction-item ${isCorrect ? 'correct' : ''}">
-                    <span>${player}</span>
-                    <span class="pick-tag">${pick}</span>
-                </div>
+                <span class="pred-tag ${isCorrect ? 'correct' : ''}">
+                    <small>${player}:</small> <strong>${pick}</strong>
+                </span>
             `;
         }
         predictionsHtml += '</div>';
 
-        return `
-            <div class="match-card">
-                <div class="match-header">
-                    <span>${match.homeTeam} – ${match.awayTeam}</span>
+        html += `
+            <tr>
+                <td class="col-date">${date}</td>
+                <td class="col-match">${home} – ${away}</td>
+                <td class="col-status">
                     <span class="badge ${isPlayed ? 'badge-played' : 'badge-upcoming'}">
-                        ${isPlayed ? `Tulos: ${match.result}` : 'Tuleva'}
+                        ${isPlayed ? match.result : 'Tuleva'}
                     </span>
-                </div>
-                ${predictionsHtml}
-            </div>
+                </td>
+                <td class="col-preds">${predictionsHtml}</td>
+            </tr>
         `;
-    }).join('');
+    });
+
+    html += `</tbody></table></div>`;
+    container.innerHTML = html;
 }
