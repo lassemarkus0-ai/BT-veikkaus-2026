@@ -24,30 +24,45 @@ def fetch_and_update():
 
     # 3. Käydään läpi data.json ottelut
     for match in local_data.get('matches', []):
-        if not match.get('result'):
-            home = match.get('homeTeam')
-            away = match.get('awayTeam')
+        home = match.get('homeTeam')
+        away = match.get('awayTeam')
+        
+        for game in api_games:
+            api_home = game.get('homeTeam', {}).get('name')
+            api_away = game.get('awayTeam', {}).get('name')
             
-            for game in api_games:
-                api_home = game.get('homeTeam', {}).get('name')
-                api_away = game.get('awayTeam', {}).get('name')
+            if api_home == home and api_away == away:
+                is_started = game.get('started', False)
+                is_ended = game.get('ended', False)
                 
-                if game.get('ended') and api_home == home and api_away == away:
+                # Käsitellään peli, jos se on alkanut tai jo päättynyt
+                if is_started or is_ended:
                     home_goals = game.get('homeTeam', {}).get('goals', 0)
                     away_goals = game.get('awayTeam', {}).get('goals', 0)
                     
-                    match['result'] = "1" if home_goals > away_goals else "2"
-                    updated_count += 1
-                    print(f"Päivitetty: {home} vs {away} -> {match['result']}")
+                    # Määritetään merkki: 1, 2 tai tasatilanteessa X
+                    if home_goals > away_goals:
+                        current_result = "1"
+                    elif away_goals > home_goals:
+                        current_result = "2"
+                    else:
+                        current_result = "X"
+                    
+                    # Päivitetään data.json vain jos merkki on muuttunut
+                    if match.get('result') != current_result:
+                        match['result'] = current_result
+                        updated_count += 1
+                        status_str = "LOPPUTULOS" if is_ended else "LIVE"
+                        print(f"Päivitetty [{status_str}]: {home} {home_goals}-{away_goals} {away} -> {current_result}")
                     break
 
-    # 4. Tallennetaan päivitetty data.json
+    # 4. Tallennetaan muuttunut data.json
     if updated_count > 0:
         with open('data.json', 'w', encoding='utf-8') as f:
             json.dump(local_data, f, ensure_ascii=False, indent=2)
         print(f"Päivitetty yhteensä {updated_count} ottelua.")
     else:
-        print("Ei uusia päivitettäviä tuloksia.")
+        print("Ei muutoksia tuloksissa.")
 
 if __name__ == "__main__":
     fetch_and_update()
