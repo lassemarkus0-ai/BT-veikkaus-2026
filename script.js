@@ -1,3 +1,34 @@
+// Erikoisveikkaukset Excel-tiedostosta
+const otherPredictionsData = {
+    players: ["Asko", "Markus", "Ilpo", "Absolut", "Kari", "Pasi"],
+    rows: [
+        { label: "KULTA (max 3 p.)", picks: ["KalPa", "Tappara", "Kärpät", "Tappara", "JYP", "Tappara"] },
+        { label: "HOPEA (max 3 p.)", picks: ["Tappara", "Kärpät", "Ilves", "Lukko", "Tappara", "Ilves"] },
+        { label: "PRONSSI (max 3 p.)", picks: ["HIFK", "Kalpa", "Tappara", "Kärpät", "Ilves", "HIFK"] },
+        { label: "RUNKOSARJA 1. (max 3 p.)", picks: ["KalPa", "Kärpät", "Ilves", "Tappara", "JYP", "Tappara"] },
+        { label: "RUNKOSARJA 2. (max 3 p.)", picks: ["Lukko", "Kalpa", "Tappara", "Lukko", "Ilves", "Ilves"] },
+        { label: "RUNKOSARJA 3. (max 3 p.)", picks: ["HIFK", "HIFK", "Lukko", "Ilves", "Tappara", "HIFK"] },
+        { label: "Liigasta 1. putoava (max 3 p)", picks: ["Sport", "Sport", "Ässät", "Jukurit", "HPK", "TPS"] },
+        { label: "Liigasta 2. putoava (max 3 p)", picks: ["Jukurit", "KooKoo", "Kiekko-Espoo", "K-Espoo", "SPORT", "Sport"] },
+        { label: "Liigasta 3. putoava (max 3 p)", picks: ["HPK", "Jukurit", "Jukurit", "Sport", "Jukurit", "Jukurit"] },
+        { label: "Runkosarjan viimeinen", picks: ["Sport", "Jukurit", "Jukurit", "Jukurit", "Jukurit", "Jukurit"] },
+        { label: "Kärppien liigasijoitus", picks: ["8", "3", "1", "3", "8", "6"] },
+        { label: "Liigan paras pistepörssissä", picks: ["Benjamin Rautiainen", "Kantner", "Kantner", "Blichfeldt", "Blicfelt", "Aapeli Räsänen"] },
+        { label: "Kärppien paras pistepörssissä", picks: ["Roni Hirvonen", "Kantner", "Kantner", "Ratinen", "Hirvonen", "Kantner"] },
+        { label: "Liigan paras maalintekijä", picks: ["Joachim Blichfeld", "Kantner", "Patrick Curry", "Fabre", "Tukiainen", "Blichfeld"] },
+        { label: "Kärppien paras maalintekijä", picks: ["Matyas Kantner", "Kantner", "Eetu Päkkilä", "Okany", "Kantner", "Kantner"] },
+        { label: "Liigan jäähykuningas", picks: ["Zack Hayes", "Tikka", "Cameron Hillis", "Lauridsen", "Rafkin", "Tommi Tikka"] },
+        { label: "Kärppien jäähykuningas", picks: ["Tommi Tikka", "Tikka", "Tommi Tikka", "Salmela", "Tikka", "Tommi Tikka"] },
+        { label: "Liigan paras veskari (% perusteella)", picks: ["Christoffer Rifalk", "Rubin", "Niklas Rubin", "Heljanko", "Heljanko", "Heljanko"] },
+        { label: "Liigan parhaan veskarin torjuntaprosentti", picks: ["93.09", "93.15", "92.77", "93.20", "92.11", "94.21"] },
+        { label: "Liigan paras +/- tilastossa", picks: ["Jesper Mattila", "Blichfeld", "Harri Pesonen", "Blichfeldt", "Jasek", "Matinmikko"] },
+        { label: "Kärppien paras +/- tilastossa", picks: ["Emil Erholz", "Erholz", "Roni Hirvonen", "Matinmikko", "Matinmikko", "Matinmikko"] },
+        { label: "Liigan huonoin +/- tilastossa", picks: ["Zack Hayes", "Addamo", "Justin Addamo", "Tiihonen", "Sandvik", "Kalle Miketinac"] },
+        { label: "Kärppien paras +/- tilastossa (2)", picks: ["Tuukka Tieksola", "Matinmikko", "Nooa Viuhkola", "Matinmikko", "Matinmikko", "Tommi Tikka"] },
+        { label: "Kärppien kotiotteluiden yleisökeskiarvo", picks: ["4700", "5314", "5217", "5197", "4612", "4913"] }
+    ]
+};
+
 document.addEventListener("DOMContentLoaded", () => {
     fetch('data.json')
         .then(response => {
@@ -8,11 +39,14 @@ document.addEventListener("DOMContentLoaded", () => {
             updateStats(data.players, data.matches);
             renderStandings(data.players, data.matches);
             renderMatchesTable(data.matches);
+            renderOtherPredictions();
         })
-        .catch(error => console.error('Virhe:', error));
+        .catch(error => {
+            console.error('Virhe:', error);
+            renderOtherPredictions();
+        });
 });
 
-// Välilehtien vaihto
 function switchTab(tabName) {
     document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
     document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
@@ -29,50 +63,50 @@ function switchTab(tabName) {
     }
 }
 
-// Päivittää yläpalkin tilastot
 function updateStats(players, matches) {
-    const totalPlayers = players.length;
-    const playedMatches = matches.filter(m => m.result && m.result.trim() !== "").length;
-    const totalMatches = matches.length;
+    const totalPlayers = players ? players.length : 6;
+    const playedMatches = matches ? matches.filter(m => m.result && m.result.trim() !== "").length : 0;
+    const totalMatches = matches ? matches.length : 0;
 
     document.getElementById('stat-players').innerText = totalPlayers;
     document.getElementById('stat-matches').innerText = `${playedMatches} / ${totalMatches}`;
 }
 
-// Sarjataulukon laskenta
 function renderStandings(players, matches) {
     const container = document.getElementById('standings-container');
-    if (!container) return;
+    if (!container || !players) return;
 
     const stats = {};
     players.forEach(p => stats[p] = { name: p, points: 0, correct: 0 });
 
-    matches.forEach(match => {
-        if (match.result && match.result.trim() !== "") {
-            const res = match.result.trim();
-            const counts = { "1": 0, "X": 0, "2": 0 };
-            
-            Object.values(match.predictions || {}).forEach(pick => {
-                if (counts[pick] !== undefined) counts[pick]++;
-            });
+    if (matches) {
+        matches.forEach(match => {
+            if (match.result && match.result.trim() !== "") {
+                const res = match.result.trim();
+                const counts = { "1": 0, "X": 0, "2": 0 };
+                
+                Object.values(match.predictions || {}).forEach(pick => {
+                    if (counts[pick] !== undefined) counts[pick]++;
+                });
 
-            Object.entries(match.predictions || {}).forEach(([player, pick]) => {
-                if (stats[player] && pick === res) {
-                    stats[player].correct++;
-                    const pickCount = counts[pick];
-                    const otherCounts = Object.keys(counts).filter(k => k !== pick && counts[k] > 0).map(k => counts[k]);
+                Object.entries(match.predictions || {}).forEach(([player, pick]) => {
+                    if (stats[player] && pick === res) {
+                        stats[player].correct++;
+                        const pickCount = counts[pick];
+                        const otherCounts = Object.keys(counts).filter(k => k !== pick && counts[k] > 0).map(k => counts[k]);
 
-                    if (otherCounts.length === 0 || otherCounts.every(c => c === pickCount)) {
-                        stats[player].points += 1.5;
-                    } else if (otherCounts.every(c => pickCount < c)) {
-                        stats[player].points += 2.0;
-                    } else {
-                        stats[player].points += 1.0;
+                        if (otherCounts.length === 0 || otherCounts.every(c => c === pickCount)) {
+                            stats[player].points += 1.5;
+                        } else if (otherCounts.every(c => pickCount < c)) {
+                            stats[player].points += 2.0;
+                        } else {
+                            stats[player].points += 1.0;
+                        }
                     }
-                }
-            });
-        }
-    });
+                });
+            }
+        });
+    }
 
     const sorted = Object.values(stats).sort((a, b) => b.points - a.points || b.correct - a.correct);
 
@@ -93,10 +127,9 @@ function renderStandings(players, matches) {
     }).join('');
 }
 
-// Otteluiden tulostus TAULUKKONA (pvm, ottelu, tilanne, veikkaukset)
 function renderMatchesTable(matches) {
     const container = document.getElementById('matches-container');
-    if (!container) return;
+    if (!container || !matches) return;
 
     let html = `
         <div class="table-wrapper">
@@ -113,7 +146,6 @@ function renderMatchesTable(matches) {
     `;
 
     matches.forEach(match => {
-        // Tunnistetaan kentät joustavasti
         const home = match.homeTeam || match.koti || match.home || "Koti";
         const away = match.awayTeam || match.vieras || match.away || "Vieras";
         const date = match.date || match.pvm || match.aika || "-";
@@ -140,6 +172,36 @@ function renderMatchesTable(matches) {
                     </span>
                 </td>
                 <td class="col-preds">${predictionsHtml}</td>
+            </tr>
+        `;
+    });
+
+    html += `</tbody></table></div>`;
+    container.innerHTML = html;
+}
+
+// Generoi "Muut veikkaukset" -välilehden taulukon
+function renderOtherPredictions() {
+    const container = document.getElementById('other-container');
+    if (!container) return;
+
+    let html = `
+        <div class="table-wrapper">
+            <table class="other-table">
+                <thead>
+                    <tr>
+                        <th>Veikkauskohde</th>
+                        ${otherPredictionsData.players.map(p => `<th>${p}</th>`).join('')}
+                    </tr>
+                </thead>
+                <tbody>
+    `;
+
+    otherPredictionsData.rows.forEach(row => {
+        html += `
+            <tr>
+                <td>${row.label}</td>
+                ${row.picks.map(val => `<td>${val}</td>`).join('')}
             </tr>
         `;
     });
