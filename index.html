@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kärppä-veikkaus 2026–2027</title>
+  <style>
+    :root {
+      --karpat-gold: #ffcc00;
+      --karpat-black: #111111;
+      --bg-dark: #18181b;
+      --card-bg: #27272a;
+      --border-color: #3f3f46;
+      --text-main: #f4f4f5;
+      --text-muted: #a1a1aa;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      margin: 0;
+      padding: 20px 12px;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      padding: 24px 16px;
+      background: linear-gradient(180deg, #222 0%, var(--card-bg) 100%);
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      border-bottom: 4px solid var(--karpat-gold);
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      color: var(--karpat-gold);
+      margin: 0 0 6px 0;
+      font-size: 1.8rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin: 0;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+
+    h2 {
+      color: var(--karpat-gold);
+      font-size: 1.25rem;
+      margin-top: 0;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 8px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    th, td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+
+    th {
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    .badge-rank {
+      display: inline-block;
+      width: 26px;
+      height: 26px;
+      line-height: 26px;
+      background: var(--karpat-gold);
+      color: var(--karpat-black);
+      font-weight: bold;
+      text-align: center;
+      border-radius: 50%;
+      font-size: 0.85rem;
+    }
+
+    .points {
+      font-weight: bold;
+      color: var(--karpat-gold);
+      font-size: 1.05rem;
+    }
+
+    .rules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+    }
+
+    .rule-box {
+      background: #18181b;
+      padding: 12px 16px;
+      border-radius: 8px;
+      border-left: 3px solid var(--karpat-gold);
+    }
+
+    .rule-box strong { color: var(--karpat-gold); }
+
+    .match-card {
+      background: #18181b;
+      border-radius: 8px;
+      padding: 14px;
+      margin-bottom: 12px;
+      border: 1px solid var(--border-color);
+    }
+
+    .match-header {
+      display: flex;
+      justify-content: space-between;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .match-result {
+      color: var(--karpat-gold);
+    }
+
+    .weight-tag {
+      background: #333;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      margin-left: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Kärpät Veikkaus 2026–2027</h1>
+      <p class="subtitle">Runko-otteluiden 1–2 -veikkauskimppa (10 osallistujaa)</p>
+    </header>
+
+    <!-- Pisteytyssäännöt -->
+    <div class="card">
+      <h2>Pisteytysmalli</h2>
+      <div class="rules-grid">
+        <div class="rule-box">
+          <strong>Eniten veikattu (1.0x)</strong><br>
+          Enemmistön valinta tuo 1 pisteen oikein osuttaessa.
+        </div>
+        <div class="rule-box">
+          <strong>Vähiten veikattu (2.0x)</strong><br>
+          Vähemmistön valinta tuo 2 pistettä oikein osuttaessa.
+        </div>
+        <div class="rule-box">
+          <strong>Tasajako (1.5x)</strong><br>
+          Jos veikkaukset tasan (5–5), kerroin on 1.5.
+        </div>
+      </div>
+    </div>
+
+    <!-- Sarjataulukko -->
+    <div class="card">
+      <h2>Sarjataulukko</h2>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 50px;">#</th>
+            <th>Nimi</th>
+            <th>Oikein</th>
+            <th style="text-align: right;">Pisteet</th>
+          </tr>
+        </thead>
+        <tbody id="leaderboard-body">
+          <tr><td colspan="4">Ladataan tilannetta...</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Otteluhistoria -->
+    <div class="card">
+      <h2>Menneet ottelut</h2>
+      <div id="matches-container">
+        Ladataan otteluita...
+      </div>
+    </div>
+  </div>
+
+  <script>
+    fetch('./data.json')
+      .then(response => response.json())
+      .then(data => {
+        // Render Leaderboard
+        const lbBody = document.getElementById('leaderboard-body');
+        lbBody.innerHTML = '';
+        
+        const sortedLeaderboard = [...data.leaderboard].sort((a, b) => b.points - a.points);
+        
+        sortedLeaderboard.forEach((player, index) => {
+          lbBody.innerHTML += `
+            <tr>
+              <td><span class="badge-rank">${index + 1}</span></td>
+              <td><strong>${player.name}</strong></td>
+              <td>${player.correct} / ${player.total}</td>
+              <td style="text-align: right;" class="points">${player.points.toFixed(1)} p</td>
+            </tr>
+          `;
+        });
+
+        // Render Matches
+        const matchesDiv = document.getElementById('matches-container');
+        matchesDiv.innerHTML = '';
+
+        if (!data.matches || data.matches.length === 0) {
+          matchesDiv.innerHTML = '<p style="color: var(--text-muted);">Ei pelattuja otteluita vielä.</p>';
+        } else {
+          data.matches.reverse().forEach(match => {
+            matchesDiv.innerHTML += `
+              <div class="match-card">
+                <div class="match-header">
+                  <span>${match.date} | Kärpät vs. ${match.opponent}</span>
+                  <span class="match-result">Tulos: Merkki ${match.result}</span>
+                </div>
+                <div style="font-size: 0.85rem; color: var(--text-muted);">
+                  Veikkaukset: [1: Kärpät] ${match.count_1} kpl (Kerroin: ${match.weight_1}x) | 
+                  [2: Vastustaja] ${match.count_2} kpl (Kerroin: ${match.weight_2}x)
+                </div>
+              </div>
+            `;
+          });
+        }
+      })
+      .catch(err => {
+        document.getElementById('leaderboard-body').innerHTML = '<tr><td colspan="4">Virhe ladattaessa tietoja. Varmista että data.json on luotu.</td></tr>';
+      });
+  </script>
+</body>
+</html>
