@@ -1,0 +1,36 @@
+name: Automatisoitu tulospäivitys
+
+on:
+  schedule:
+    # Ajaa skriptin joka ilta klo 22.00 Suomen aikaa (19.00 UTC)
+    - cron: '0 19 * * *'
+  workflow_dispatch: # Mahdollistaa käynnistyksen käsin GitHubista
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Hae koodi repositoriosta
+        uses: actions/checkout@v4
+
+      - name: Asenna Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Asenna tarvittavat paketit
+        run: pip install requests
+
+      - name: Suorita päivitysskripti
+        run: python update_results.py
+
+      - name: Tallenna ja pushaa muutokset repositorioon
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add data.json
+          git commit -m "Automaattinen tulospäivitys API:sta" || exit 0
+          git push
